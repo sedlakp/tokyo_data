@@ -23,6 +23,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    // the controller and keep page prevents future to trigger on tab change
     _controller = PageController(initialPage: _selectedIndex, keepPage: true);
   }
 

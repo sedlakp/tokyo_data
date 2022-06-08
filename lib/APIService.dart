@@ -13,15 +13,11 @@ class APIService {
   static Future<CulturalSite> fetchCulturalSite({required String id}) async {
     final response = await http.get(Uri.parse('https://api.data.metro.tokyo.lg.jp/v1/CulturalProperty?ID=$id'));
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
       List<dynamic> list = jsonDecode(response.body);
       Map<String, dynamic> jsonSite = list[0][0];
       return CulturalSite.fromJson(jsonSite);
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load');
     }
   }
 
@@ -37,12 +33,8 @@ class APIService {
       print(list);
       List<CulturalSite> posts = List<CulturalSite>.from(list.map((model)=> CulturalSite.fromJson(model)));
       return posts;
-      // List<Map<String, dynamic>> ha = list[0];
-      // return CulturalSites.fromJson(ha);
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load');
     }
   }
 

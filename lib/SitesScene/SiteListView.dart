@@ -7,8 +7,6 @@ class SiteListView extends StatelessWidget {
 
   final List<CulturalSite> sites;
 
-  static const test = [1,2,3,4,5,6,7,8];
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
