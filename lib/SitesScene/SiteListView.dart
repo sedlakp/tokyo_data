@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'CulturalSite.dart';
+import '../CulturalSite.dart';
 
 class SiteListView extends StatelessWidget {
   const SiteListView({Key? key, required this.sites}) : super(key: key);
