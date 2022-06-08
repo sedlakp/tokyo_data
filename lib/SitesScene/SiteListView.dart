@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tokyo_data/SitesScene/DetailSiteView.dart';
 import '../CulturalSite.dart';
 
 class SiteListView extends StatelessWidget {
@@ -13,14 +14,26 @@ class SiteListView extends StatelessWidget {
     return ListView.builder(
       itemCount: sites.length,
       itemBuilder: (context, index) {
-        return Card(
-          child:ListTile(
-            title: Text(sites[index].name),
-            subtitle: Text(sites[index].description.first),
-          ),
-
+        return GestureDetector(onTap: () {
+          Navigator.push(context, 
+              MaterialPageRoute(builder: (context) {
+                return DetailSiteView(site: sites[index],);
+              },)
+          );
+        },
+          child: buildCard(sites[index]),
         );
       },
+    );
+  }
+  
+  
+  Card buildCard(CulturalSite site) {
+    return Card(
+        child:ListTile(
+          title: Text(site.name),
+          subtitle: Text(site.description.first),
+    )
     );
   }
 }
