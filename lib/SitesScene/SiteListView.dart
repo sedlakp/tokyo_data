@@ -43,7 +43,7 @@ class SiteListView extends StatelessWidget {
     return Card(
         child:ListTile(
           title: Text(site.name),
-          subtitle: Text(site.kanaName),
+          subtitle: Text(site.englishName),
     )
     );
   }
