@@ -11,7 +11,7 @@ class SitesView extends StatefulWidget {
   State<SitesView> createState() => _SitesViewState();
 }
 
-class _SitesViewState extends State<SitesView> {//with AutomaticKeepAliveClientMixin<SitesView> {
+class _SitesViewState extends State<SitesView> with AutomaticKeepAliveClientMixin<SitesView> {
 
   late Future<void> _initSite;
   List<CulturalSite> sites = [];
@@ -24,7 +24,7 @@ class _SitesViewState extends State<SitesView> {//with AutomaticKeepAliveClientM
 
   @override
   Widget build(BuildContext context) {
-    //super.build(context);
+    super.build(context);
     return FutureBuilder(
       future: _initSite,
       builder: (BuildContext context, snapshot) {
@@ -62,6 +62,6 @@ class _SitesViewState extends State<SitesView> {//with AutomaticKeepAliveClientM
   }
 
   // the mixin is not necessary because of the pageview wrapper in Home.dart
-  // @override
-  // bool get wantKeepAlive => true;
+  @override
+  bool get wantKeepAlive => true;
 }
