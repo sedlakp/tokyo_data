@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    // the controller and keep page prevents future to trigger on tab change
+    // the controller and keep page prevents future to trigger on tab change, but i still need the mixin inside the page
     _controller = PageController(initialPage: _selectedIndex, keepPage: true);
   }
 

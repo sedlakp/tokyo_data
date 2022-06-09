@@ -15,6 +15,7 @@ class _SitesViewState extends State<SitesView> with AutomaticKeepAliveClientMixi
 
   late Future<void> _initSite;
   List<CulturalSite> sites = [];
+  String? _currentCursor = "";
 
   @override
   void initState() {
@@ -41,7 +42,7 @@ class _SitesViewState extends State<SitesView> with AutomaticKeepAliveClientMixi
             {
               return RefreshIndicator(
                 onRefresh: _refreshSites,
-                child: SiteListView(sites: sites),
+                child: SiteListView(sites: sites, onGetNextPage: onNextPage),
               );
             }
         }
@@ -50,18 +51,34 @@ class _SitesViewState extends State<SitesView> with AutomaticKeepAliveClientMixi
   }
 
   Future<void> _initSites() async {
-    final sites = await APIService.fetchCulturalSites(limit: 20);
-    this.sites = sites;
+    final sites = await APIService.fetchCulturalSites2();
+    this.sites = sites.siteList;
+    _currentCursor = sites.cursor;
   }
 
   Future<void> _refreshSites() async {
-    final sites = await APIService.fetchCulturalSites(limit: 20);
+    _currentCursor = "";
+    final sites = await APIService.fetchCulturalSites2();
     setState(() {
-      this.sites = sites;
+      this.sites = sites.siteList;
+      _currentCursor = sites.cursor;
     });
   }
 
-  // the mixin is not necessary because of the pageview wrapper in Home.dart
+  Future<void> _nextPageSites() async {
+    final sites = await APIService.fetchCulturalSites2(cursor: _currentCursor);
+    setState(() {
+      this.sites.addAll(sites.siteList);
+      _currentCursor = sites.cursor;
+    });
+  }
+
+  void onNextPage() async {
+    print("next page load");
+    await _nextPageSites();
+  }
+
+  // I need the mixin even though i have the pageview wrapper in Home.dart
   @override
   bool get wantKeepAlive => true;
 }
