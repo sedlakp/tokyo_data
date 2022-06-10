@@ -13,14 +13,14 @@ class SitesView extends StatefulWidget {
 
 class _SitesViewState extends State<SitesView> with AutomaticKeepAliveClientMixin<SitesView> {
 
-  late Future<void> _initSite;
+  late final Future<void> _initSite;
   List<CulturalSite> sites = [];
   String? _currentCursor = "";
 
   @override
   void initState() {
-    _initSite = _initSites();
     super.initState();
+    _initSite = _initSites();
   }
 
   @override

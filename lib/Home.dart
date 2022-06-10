@@ -12,7 +12,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _selectedIndex = 0;
-  late PageController _controller;
 
   static List<Widget> tabPages = [
     const SitesView(),
@@ -23,8 +22,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    // the controller and keep page prevents future to trigger on tab change, but i still need the mixin inside the page
-    _controller = PageController(initialPage: _selectedIndex, keepPage: true);
   }
 
   @override
@@ -33,8 +30,8 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
           title: const Text("東京")
       ),
-      body: PageView(
-        controller: _controller,
+      body: IndexedStack(
+        index: _selectedIndex,
         children: tabPages,
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -44,14 +41,12 @@ class _HomeState extends State<Home> {
         ],
         onTap: _onItemTapped,
       ),
-
     );
   }
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      _controller.jumpToPage(index);
     });
   }
 
