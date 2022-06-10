@@ -41,10 +41,27 @@ class SiteListView extends StatelessWidget {
   
   Card buildCard(CulturalSite site) {
     return Card(
-        child:ListTile(
-          title: Text(site.name),
-          subtitle: Text(site.englishName),
-    )
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(child: Text(site.name, style: const TextStyle(fontWeight: FontWeight.bold),)),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration:BoxDecoration(color: Colors.blueGrey, borderRadius: BorderRadius.circular(8)),
+                    child: Text(site.days ?? "",style: const TextStyle(color: Colors.white),)
+                  )
+              ],),
+              const SizedBox(height: 10,),
+              Text(site.englishName, textAlign: TextAlign.left),
+            ],
+          ),
+        )
     );
   }
 }
