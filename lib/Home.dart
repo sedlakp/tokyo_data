@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:tokyo_data/SitesScene/SitesView.dart';
-
+import 'package:provider/provider.dart';
+import 'AppStateManager.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key? key, required this.currentTab}) : super(key: key);
 
-  static MaterialPage page() {
-    return const MaterialPage(
+  static MaterialPage page(int currentTab) {
+    return MaterialPage(
       name: "/",
       key: ValueKey("/"),
-      child: Home(),
+      child: Home(currentTab: currentTab,),
     );
   }
+
+  final int currentTab;
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-
-  int _selectedIndex = 0;
 
   static List<Widget> tabPages = [
     const SitesView(),
@@ -39,23 +40,21 @@ class _HomeState extends State<Home> {
           title: const Text("東京")
       ),
       body: IndexedStack(
-        index: _selectedIndex,
+        index: widget.currentTab,
         children: tabPages,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: widget.currentTab,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home),label: "東京"),
           BottomNavigationBarItem(icon: Icon(Icons.settings),label: "Settings" ),
         ],
-        onTap: _onItemTapped,
+        onTap: (index) {
+          Provider.of<AppStateManager>(context, listen: false)
+              .goToTab(index);
+        },
       ),
     );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
   }
 
 }

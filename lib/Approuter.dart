@@ -30,7 +30,7 @@ class Approuter extends RouterDelegate with ChangeNotifier, PopNavigatorRouterDe
       pages: [
           if (!appStateManager.splashFinished) SplashScreen.page(),
           if (appStateManager.splashFinished && !appStateManager.isDataLoaded) LoadingScreen.page(),
-          if (appStateManager.isDataLoaded) Home.page(),
+          if (appStateManager.isDataLoaded) Home.page(appStateManager.selectedTab),
       ],
     );
   }
