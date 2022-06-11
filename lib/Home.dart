@@ -5,6 +5,14 @@ import 'package:tokyo_data/SitesScene/SitesView.dart';
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
+  static MaterialPage page() {
+    return const MaterialPage(
+      name: "/",
+      key: ValueKey("/"),
+      child: Home(),
+    );
+  }
+
   @override
   State<Home> createState() => _HomeState();
 }
