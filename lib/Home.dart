@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tokyo_data/MapScreenVIew.dart';
 import 'package:tokyo_data/SitesScene/SitesView.dart';
 import 'package:provider/provider.dart';
 import 'AppStateManager.dart';
@@ -24,7 +25,8 @@ class _HomeState extends State<Home> {
 
   static List<Widget> tabPages = [
     const SitesView(),
-    Container(color: Colors.cyanAccent,)
+    //Container(color: Colors.cyanAccent,)
+    const MapScreenView(),
 
   ];
 

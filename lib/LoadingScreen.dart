@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tokyo_data/APIService.dart';
 import 'package:tokyo_data/AppStateManager.dart';
+import 'package:tokyo_data/SitesManager.dart';
+import 'CulturalSite.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);
@@ -19,31 +22,27 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProviderStateMixin{
 
-  late AnimationController controller;
+  //late AnimationController controller;
+  late SitesManager manager = Provider.of<SitesManager>(context, listen: false);
+
+  //List<CulturalSite> sites = [];
+  String cursor = "";
+  bool hasAllData = false;
+
+  double get progress {
+    return manager.sites.length/250 <= 1 ? manager.sites.length/250 : 1;
+  }
 
   @override
   void initState() {
-    // TODO: Replace animation with real api request
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 3),
-    )..addListener(() {
-      setState(() {}); // update the progress view
-    });
-    controller.addStatusListener((AnimationStatus status){
-      print(status);
-      // wait for animation to finish
-      if (status == AnimationStatus.completed) {
-        Provider.of<AppStateManager>(context, listen: false).dataLoadedFinished();
-      }
-    });
-    controller.forward(); // start animation
+    //setupAnimation();
     super.initState();
+    fetchSites();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    //controller.dispose();
     super.dispose();
   }
 
@@ -54,11 +53,43 @@ class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProvider
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: LinearProgressIndicator(
-            value: controller.value,
+            value: progress,
 
           ),
         ),
       ),
     );
   }
+
+  void fetchSites() async {
+    while (!hasAllData) {
+      var batch = await APIService.fetchCulturalSites2(limit: 50, cursor: cursor);
+      cursor = batch.cursor;
+      //sites.addAll(batch.siteList);
+      manager.sites.addAll(batch.siteList);
+      hasAllData = !batch.hasMoreData;
+      print("everything downloaded: $hasAllData, number of items yet: ${manager.sites.length}");
+      setState(() {});
+    }
+    print("push to app");
+    Provider.of<AppStateManager>(context, listen: false).dataLoadedFinished();
+
+  }
+
+  // void setupAnimation() {
+  //   controller = AnimationController(
+  //     vsync: this,
+  //     duration: const Duration(seconds: 3),
+  //   )..addListener(() {
+  //     setState(() {}); // update the progress view
+  //   });
+  //   controller.addStatusListener((AnimationStatus status){
+  //     print(status);
+  //     // wait for animation to finish
+  //     if (status == AnimationStatus.completed) {
+  //       Provider.of<AppStateManager>(context, listen: false).dataLoadedFinished();
+  //     }
+  //   });
+  //   controller.forward(); // start animation
+  // }
 }
