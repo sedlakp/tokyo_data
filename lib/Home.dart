@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
         currentIndex: widget.currentTab,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home),label: "東京"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings),label: "Settings" ),
+          BottomNavigationBarItem(icon: Icon(Icons.map),label: "Map" ),
         ],
         onTap: (index) {
           Provider.of<AppStateManager>(context, listen: false)

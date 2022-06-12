@@ -2,10 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:tokyo_data/AppStateManager.dart';
+import 'package:tokyo_data/EmptyScreen.dart';
 import 'package:tokyo_data/LoadingScreen.dart';
 import 'package:tokyo_data/SplashScreen.dart';
 
 import 'package:tokyo_data/Home.dart';
+
+//https://medium.com/flutter/learning-flutters-new-navigation-and-routing-system-7c9068155ade
 
 class Approuter extends RouterDelegate with ChangeNotifier, PopNavigatorRouterDelegateMixin {
 
@@ -28,6 +31,8 @@ class Approuter extends RouterDelegate with ChangeNotifier, PopNavigatorRouterDe
       key: navigatorKey,
       onPopPage: _handlePopPage,
       pages: [
+        // last in this array is on top of the stack
+        // when this gets too complicated I can make a function that returns list of current pages
           if (!appStateManager.splashFinished) SplashScreen.page(),
           if (appStateManager.splashFinished && !appStateManager.isDataLoaded) LoadingScreen.page(),
           if (appStateManager.isDataLoaded) Home.page(appStateManager.selectedTab),

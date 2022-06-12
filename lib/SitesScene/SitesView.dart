@@ -20,12 +20,14 @@ class _SitesViewState extends State<SitesView> with AutomaticKeepAliveClientMixi
   @override
   void initState() {
     super.initState();
+    Future.delayed(Duration.zero, () => showAlert(context));
     _initSite = _initSites();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
     return FutureBuilder(
       future: _initSite,
       builder: (BuildContext context, snapshot) {
@@ -48,6 +50,14 @@ class _SitesViewState extends State<SitesView> with AutomaticKeepAliveClientMixi
         }
       },
     );
+  }
+
+  void showAlert(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          content: Text("List is an infinite scroll, data are separated from previously loaded data, these are used in the Map tab"),
+        ));
   }
 
   Future<void> _initSites() async {
