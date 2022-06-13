@@ -18,6 +18,8 @@ class SitesManager extends ChangeNotifier {
   List<String> _visitedSitesIDs = [];
   List<String> _favoritedSitesIDs = [];
 
+  bool ticker = true;
+
   List<CulturalSite> get visitedSites {
     return sites.where( (site) {
       return _visitedSitesIDs.contains(site.siteId);
@@ -40,10 +42,14 @@ class SitesManager extends ChangeNotifier {
 
   void handleFavorite(CulturalSite site) {
     isFavorite(site) ? removeFavoriteSite(site) : addFavoriteSite(site);
+    ticker = !ticker;
+    notifyListeners();
   }
 
   void handleVisited(CulturalSite site) {
     isVisited(site) ? removeVisitedSite(site) : addVisitedSite(site);
+    ticker = !ticker;
+    notifyListeners();
   }
 
   void addVisitedSite(CulturalSite site) {

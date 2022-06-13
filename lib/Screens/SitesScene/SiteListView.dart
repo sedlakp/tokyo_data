@@ -1,32 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:tokyo_data/Screens/SitesScene/DetailSiteView.dart';
 import 'package:tokyo_data/Models/Models.dart';
+import 'package:provider/provider.dart';
 
 class SiteListView extends StatelessWidget {
-  SiteListView({Key? key, required this.sites, Function? onGetNextPage }): onGetNextPage = onGetNextPage ?? ((){}), super(key: key);
+  SiteListView({Key? key, required this.sitesManager }): /*onGetNextPage = onGetNextPage ?? ((){}), */super(key: key);
 
-  final List<CulturalSite> sites;
-
-  final Function onGetNextPage;
+  late final SitesManager sitesManager;
+  //final Function onGetNextPage;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: sites.length+1,
+      itemCount: sitesManager.sites.length,
       itemBuilder: (context, index) {
-        if (index != sites.length) {
           return GestureDetector(
             onTap: (){
               pushToDetail(context,index);
             },
-            child: buildCard(sites[index]),
+            child: buildCard(sitesManager.sites[index]),
           );
-        } else {
-          // TODO: - What happens after no more data not yet handled
-          onGetNextPage();
-          return const Center(child: CircularProgressIndicator());
-        }
-
       },
     );
   }
@@ -34,7 +27,7 @@ class SiteListView extends StatelessWidget {
   void pushToDetail(BuildContext context, int index) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) {
-          return DetailSiteView(site: sites[index],);
+          return DetailSiteView(site: sitesManager.sites[index],);
         },)
     );
   }
@@ -51,11 +44,18 @@ class SiteListView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(child: Text(site.name, style: const TextStyle(fontWeight: FontWeight.bold),)),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    decoration:BoxDecoration(color: Colors.blueGrey, borderRadius: BorderRadius.circular(8)),
-                    child: Text(site.days ?? "",style: const TextStyle(color: Colors.white),)
-                  )
+                  const SizedBox(width: 5,),
+                  Row(children: [
+                    if (sitesManager.isFavorite(site)) const Icon(Icons.favorite, color: Colors.purpleAccent,),
+                    if (sitesManager.isFavorite(site)) const SizedBox(width: 5,),
+                    if (sitesManager.isVisited(site)) const Icon(Icons.visibility, color: Colors.cyan,),
+                    if (sitesManager.isVisited(site)) const SizedBox(width: 5,),
+                    Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        decoration:BoxDecoration(color: Colors.blueGrey, borderRadius: BorderRadius.circular(8)),
+                        child: Text(site.days ?? "",style: const TextStyle(color: Colors.white),)
+                    )
+                  ],),
               ],),
               const SizedBox(height: 10,),
               Text(site.englishName, textAlign: TextAlign.left),
