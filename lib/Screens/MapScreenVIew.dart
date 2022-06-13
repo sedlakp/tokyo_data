@@ -15,43 +15,23 @@ class MapScreenView extends StatefulWidget {
 
 class _MapScreenViewState extends State<MapScreenView> {
 
+  // MARK: - variables
+
   late final SitesManager sitesManager = Provider.of<SitesManager>(context,listen: false);
 
   final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
 
-
   final Completer<GoogleMapController> _controller = Completer();
 
-  late final CameraPosition _siteLocation = CameraPosition(
+  late final CameraPosition firstSiteLocation = CameraPosition(
     target: LatLng(sitesManager.sites.first.latitude ?? 0, sitesManager.sites.first.longitude ?? 0),
     zoom: 12,
   );
 
   final Map<String, Marker> _markers = {};
 
-  void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller);
-    setState(() {
-      _markers.clear();
-      for (final site in sitesManager.sites) {
-        final marker = Marker(
-          markerId: MarkerId(site.name),
-          position: LatLng(site.latitude ?? 0, site.longitude ?? 0),
-          onTap: () {
-            markerTapped(site);
-          },
-          infoWindow: InfoWindow(
-            title: site.name,
-            snippet: site.address,
-          ),
-        );
-        _markers[site.name] = marker;
-      }
-
-      print(_markers.length);
-    });
-  }
+  // MARK: - Build UI methods
 
   @override
   Widget build(BuildContext context) {
@@ -71,28 +51,13 @@ class _MapScreenViewState extends State<MapScreenView> {
     );
   }
 
-  void _onSiteTap(int index) async {
-    CameraPosition siteLocation = CameraPosition(
-      target: LatLng(sitesManager.sites[index].latitude ?? 0, sitesManager.sites[index].longitude ?? 0),
-      zoom: 12,
-    );
-    print(siteLocation.target);
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(siteLocation));
-  }
-
-  Future<void> _resetPosition() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_siteLocation));
-  }
-
   Widget map() {
     return GoogleMap(
       rotateGesturesEnabled: false,
       tiltGesturesEnabled: false,
       myLocationButtonEnabled: false,
       onMapCreated: _onMapCreated,
-      initialCameraPosition: _siteLocation,
+      initialCameraPosition: firstSiteLocation,
       markers: _markers.values.toSet(),
     );
   }
@@ -138,16 +103,33 @@ class _MapScreenViewState extends State<MapScreenView> {
     );
   }
 
+  // MARK: -  Action methods
+  void _onSiteTap(int index) async {
+    CameraPosition siteLocation = CameraPosition(
+      target: LatLng(sitesManager.sites[index].latitude ?? 0, sitesManager.sites[index].longitude ?? 0),
+      zoom: 12,
+    );
+    print(siteLocation.target);
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(siteLocation));
+  }
+
+  Future<void> _resetPosition() async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(firstSiteLocation));
+  }
 
   void favoriteBtnTapped(CulturalSite site) {
     setState(() {
       sitesManager.handleFavorite(site);
+      _updateMarker(site);
     });
   }
 
   void visitedBtnTapped(CulturalSite site) {
     setState(() {
       sitesManager.handleVisited(site);
+      _updateMarker(site);
     });
   }
 
@@ -158,5 +140,53 @@ class _MapScreenViewState extends State<MapScreenView> {
         index: siteIndex,
         duration: const Duration(seconds: 1),
         curve: Curves.easeInOutCubic);
+  }
+
+  void _updateMarker(CulturalSite site) {
+    _markers[site.siteId] = createMarker(site);
+  }
+
+  // MARK: - Setup methods
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+    print("SETTING UP THE MAP");
+    setState(() {
+      _markers.clear();
+      for (final site in sitesManager.sites) {
+        _markers[site.siteId] = createMarker(site);
+      }
+
+      print(_markers.length);
+    });
+  }
+
+  Marker createMarker(CulturalSite site) {
+    return Marker(
+      icon: setMapIcon(site),
+      markerId: MarkerId(site.name),
+      position: LatLng(site.latitude ?? 0, site.longitude ?? 0),
+      onTap: () {
+        markerTapped(site);
+      },
+
+      infoWindow: InfoWindow(
+        title: site.name,
+        snippet: site.address,
+      ),
+    );
+  }
+
+  BitmapDescriptor setMapIcon(CulturalSite site) {
+    bool isFavorite = sitesManager.isFavorite(site);
+    bool isVisited = sitesManager.isVisited(site);
+    // give preference to favorite
+    if (isFavorite) {
+      return BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta);
+    } else if (isVisited) {
+      return BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan);
+    } else {
+      return BitmapDescriptor.defaultMarker;
+    }
   }
 }
