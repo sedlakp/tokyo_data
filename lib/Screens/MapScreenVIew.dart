@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:tokyo_data/Models/Models.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
@@ -15,6 +16,10 @@ class MapScreenView extends StatefulWidget {
 class _MapScreenViewState extends State<MapScreenView> {
 
   late final SitesManager sitesManager = Provider.of<SitesManager>(context,listen: false);
+
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
+
 
   final Completer<GoogleMapController> _controller = Completer();
 
@@ -33,6 +38,9 @@ class _MapScreenViewState extends State<MapScreenView> {
         final marker = Marker(
           markerId: MarkerId(site.name),
           position: LatLng(site.latitude ?? 0, site.longitude ?? 0),
+          onTap: () {
+            markerTapped(site);
+          },
           infoWindow: InfoWindow(
             title: site.name,
             snippet: site.address,
@@ -90,8 +98,10 @@ class _MapScreenViewState extends State<MapScreenView> {
   }
 
   Widget sitesList() {
-    return ListView.builder(
+    return ScrollablePositionedList.builder(
       //physics: const PageScrollPhysics(),
+      itemScrollController: itemScrollController,
+      itemPositionsListener: itemPositionsListener,
       scrollDirection: Axis.horizontal,
       itemCount: sitesManager.sites.length,
       itemBuilder: (context, index) {
@@ -99,7 +109,7 @@ class _MapScreenViewState extends State<MapScreenView> {
         return GestureDetector(
           onTap: () { _onSiteTap(index); },
           child: SizedBox(
-            width: 250,
+            width: MediaQuery.of(context).size.width * 0.9,
             child: Card(
               child: Column(
                 children: [
@@ -139,5 +149,14 @@ class _MapScreenViewState extends State<MapScreenView> {
     setState(() {
       sitesManager.handleVisited(site);
     });
+  }
+
+  void markerTapped(CulturalSite site) {
+    // scroll to the item and focus it
+    int siteIndex = sitesManager.sites.indexOf(site);
+    itemScrollController.scrollTo(
+        index: siteIndex,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOutCubic);
   }
 }
