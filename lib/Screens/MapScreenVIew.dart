@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tokyo_data/SitesManager.dart';
+import 'package:tokyo_data/Models/Models.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 
- 
+
 class MapScreenView extends StatefulWidget {
   const MapScreenView({Key? key}) : super(key: key);
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../CulturalSite.dart';
-import '../APIService.dart';
+import 'package:tokyo_data/Models/Models.dart';
 import 'SiteListView.dart';
 
 

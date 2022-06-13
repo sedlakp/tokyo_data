@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tokyo_data/Home.dart';
-import 'package:tokyo_data/SitesManager.dart';
-
-import 'AppStateManager.dart';
+import 'Models/Models.dart';
 import 'Approuter.dart';
 
 void main() {

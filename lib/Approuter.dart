@@ -1,12 +1,8 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:tokyo_data/AppStateManager.dart';
-import 'package:tokyo_data/EmptyScreen.dart';
-import 'package:tokyo_data/LoadingScreen.dart';
-import 'package:tokyo_data/SplashScreen.dart';
-
-import 'package:tokyo_data/Home.dart';
+import 'package:tokyo_data/Models/Models.dart';
+import 'package:tokyo_data/Screens/Screens.dart';
 
 //https://medium.com/flutter/learning-flutters-new-navigation-and-routing-system-7c9068155ade
 

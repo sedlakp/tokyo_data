@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tokyo_data/SitesScene/DetailSiteView.dart';
-import '../CulturalSite.dart';
+import 'package:tokyo_data/Screens/SitesScene/DetailSiteView.dart';
+import 'package:tokyo_data/Models/Models.dart';
 
 class SiteListView extends StatelessWidget {
   SiteListView({Key? key, required this.sites, Function? onGetNextPage }): onGetNextPage = onGetNextPage ?? ((){}), super(key: key);

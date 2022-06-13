@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tokyo_data/CulturalSite.dart';
+import 'package:tokyo_data/Models/Models.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';

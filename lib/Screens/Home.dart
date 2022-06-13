@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tokyo_data/MapScreenVIew.dart';
-import 'package:tokyo_data/SitesScene/SitesView.dart';
+import 'package:tokyo_data/Screens/Screens.dart';
 import 'package:provider/provider.dart';
-import 'AppStateManager.dart';
+import 'package:tokyo_data/Models/Models.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key, required this.currentTab}) : super(key: key);
