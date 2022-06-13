@@ -37,14 +37,18 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-          title: const Text("東京")
+          title: const Text("東京"),
+          backgroundColor: Colors.blueGrey.withAlpha(220),
+          shadowColor: Colors.transparent,
       ),
       body: IndexedStack(
         index: widget.currentTab,
         children: tabPages,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        //backgroundColor: Colors.white.withAlpha(220),
         currentIndex: widget.currentTab,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home),label: "東京"),
