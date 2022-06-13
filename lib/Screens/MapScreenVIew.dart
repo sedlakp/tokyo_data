@@ -4,6 +4,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:tokyo_data/Models/Models.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
+import 'Screens.dart';
 
 
 class MapScreenView extends StatefulWidget {
@@ -41,7 +42,7 @@ class _MapScreenViewState extends State<MapScreenView> {
           map(),
           Positioned(
             bottom: 10,
-            height: 180,
+            height: 200,
             left: 0,
             right: 0,
             child: sitesList()
@@ -76,24 +77,48 @@ class _MapScreenViewState extends State<MapScreenView> {
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.9,
             child: Card(
-              child: Column(
-                children: [
-                  Text(currentSite.englishName),
-                  Row(
-                    children: [
-                      IconButton(onPressed: () {
-                          favoriteBtnTapped(currentSite);
-                        },
-                        icon: sitesManager.isFavorite(currentSite) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
-                      ),
-                      IconButton(onPressed: () {
-                        visitedBtnTapped(currentSite);
-                        },
-                          icon: sitesManager.isVisited(currentSite) ? const Icon(Icons.visibility) :  const Icon(Icons.visibility_outlined),
-                      )
-                    ],
-                  )
-                ],
+              color: Colors.white.withAlpha(230),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Text(currentSite.name, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
+                        Text(currentSite.kanaName, style: TextStyle(fontSize: 11, color: Colors.blueGrey),),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(onPressed: () {
+                            favoriteBtnTapped(currentSite);
+                          },
+                          icon: sitesManager.isFavorite(currentSite) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
+                        ),
+                        Container(
+                          height: 80,
+                          width: 80,
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                            child: ElevatedButton(onPressed: () {
+                              pushToDetail(context, currentSite);
+                            },
+                              child: Icon(Icons.read_more),
+                              style: ElevatedButton.styleFrom(shape: CircleBorder()),
+                            ),
+
+                        ),
+                        IconButton(onPressed: () {
+                          visitedBtnTapped(currentSite);
+                          },
+                            icon: sitesManager.isVisited(currentSite) ? const Icon(Icons.visibility) :  const Icon(Icons.visibility_outlined),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -144,6 +169,14 @@ class _MapScreenViewState extends State<MapScreenView> {
 
   void _updateMarker(CulturalSite site) {
     _markers[site.siteId] = createMarker(site);
+  }
+
+  void pushToDetail(BuildContext context, CulturalSite site) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) {
+          return DetailSiteView(site: site,);
+        },)
+    );
   }
 
   // MARK: - Setup methods

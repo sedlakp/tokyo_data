@@ -100,7 +100,7 @@ class _DetailSiteViewState extends State<DetailSiteView> {
           Positioned(
               bottom: 10,
               right: 10,
-              child: ElevatedButton(child: const Text("Reset"),onPressed: _resetPosition,)
+              child: ElevatedButton(child: const Icon(Icons.pin_drop),onPressed: _resetPosition,)
           )
         ]),
     );
