@@ -23,3 +23,8 @@ The google maps api key will probably not work because I restricted it. If it do
 
 ## Data source
 [Tokyo open data portal](https://portal.data.metro.tokyo.lg.jp/opendata-api/)
+
+## Current screenshots (2022/6/13)
+|List  |Map  |Detail  |
+|----|-----|------|
+|<img src="/screenshots/list.png" width="200">|<img src="/screenshots/map.png" width="200">|<img src="/screenshots/detail.png" width="200">|
