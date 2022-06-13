@@ -53,7 +53,7 @@ class _MapScreenViewState extends State<MapScreenView> {
           map(),
           Positioned(
             bottom: 10,
-            height: 120,
+            height: 180,
             left: 0,
             right: 0,
             child: sitesList()
@@ -95,12 +95,31 @@ class _MapScreenViewState extends State<MapScreenView> {
       scrollDirection: Axis.horizontal,
       itemCount: sitesManager.sites.length,
       itemBuilder: (context, index) {
+        var currentSite = sitesManager.sites[index];
         return GestureDetector(
           onTap: () { _onSiteTap(index); },
           child: SizedBox(
             width: 250,
             child: Card(
-              child: Text(sitesManager.sites[index].englishName),
+              child: Column(
+                children: [
+                  Text(currentSite.englishName),
+                  Row(
+                    children: [
+                      IconButton(onPressed: () {
+                          favoriteBtnTapped(currentSite);
+                        },
+                        icon: sitesManager.isFavorite(currentSite) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
+                      ),
+                      IconButton(onPressed: () {
+                        visitedBtnTapped(currentSite);
+                        },
+                          icon: sitesManager.isVisited(currentSite) ? const Icon(Icons.visibility) :  const Icon(Icons.visibility_outlined),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         );
@@ -109,4 +128,16 @@ class _MapScreenViewState extends State<MapScreenView> {
     );
   }
 
+
+  void favoriteBtnTapped(CulturalSite site) {
+    setState(() {
+      sitesManager.handleFavorite(site);
+    });
+  }
+
+  void visitedBtnTapped(CulturalSite site) {
+    setState(() {
+      sitesManager.handleVisited(site);
+    });
+  }
 }

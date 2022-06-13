@@ -30,6 +30,22 @@ class SitesManager extends ChangeNotifier {
     },).toList();
   }
 
+  bool isFavorite(CulturalSite site) {
+    return _favoritedSitesIDs.contains(site.siteId);
+  }
+
+  bool isVisited(CulturalSite site) {
+    return _visitedSitesIDs.contains(site.siteId);
+  }
+
+  void handleFavorite(CulturalSite site) {
+    isFavorite(site) ? removeFavoriteSite(site) : addFavoriteSite(site);
+  }
+
+  void handleVisited(CulturalSite site) {
+    isVisited(site) ? removeVisitedSite(site) : addVisitedSite(site);
+  }
+
   void addVisitedSite(CulturalSite site) {
     _visitedSitesIDs.add(site.siteId);
     _saveVisitedSitesIDs();
