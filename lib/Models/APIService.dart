@@ -22,12 +22,8 @@ class APIService {
   }
 
   static Future<List<CulturalSite>> fetchCulturalSites({int limit = apiItemLimit, String? cursor = ""}) async {
-
-    //var uri = Uri.http('example.org', '/path', { 'q' : 'dart' });
     final response = await http.get(Uri.parse('https://api.data.metro.tokyo.lg.jp/v1/CulturalProperty?limit=$limit&cursor=$cursor'));
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
       List<dynamic> bodyList = jsonDecode(response.body);
       List<dynamic> list = bodyList[0];
       print(list);
@@ -39,17 +35,9 @@ class APIService {
   }
 
   static Future<CulturalSiteList> fetchCulturalSites2({int limit = apiItemLimit, String? cursor = ""}) async {
-
-    //var uri = Uri.http('example.org', '/path', { 'q' : 'dart' });
     final response = await http.get(Uri.parse('https://api.data.metro.tokyo.lg.jp/v1/CulturalProperty?limit=$limit&cursor=$cursor'));
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
       List<dynamic> bodyList = jsonDecode(response.body);
-      //List<dynamic> list = bodyList[0];
-      //print(list);
-      //List<CulturalSite> posts = List<CulturalSite>.from(list.map((model)=> CulturalSite.fromJson(model)));
-      print("Hello");
       CulturalSiteList posts = CulturalSiteList.fromJson(bodyList);
       return posts;
     } else {

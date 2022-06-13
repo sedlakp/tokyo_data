@@ -1,5 +1,7 @@
 
 class CulturalSite {
+
+  String siteId;
   List<String> description;
   List<String> kind;
   String name;
@@ -15,6 +17,7 @@ class CulturalSite {
   String? days;
 
   CulturalSite({
+    required this.siteId,
     required this.description,
     required this.kind,
     required this.name,
@@ -29,6 +32,7 @@ class CulturalSite {
   });
 
   CulturalSite.fromJson(Map<String, dynamic> json):
+              siteId = json["ID"] as String,
               description = json["説明"].cast<String>(),
               kind = json["種別"].cast<String>(),
               name = json["名称"]["表記"][0],
