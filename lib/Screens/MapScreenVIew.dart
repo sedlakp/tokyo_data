@@ -96,6 +96,7 @@ class _MapScreenViewState extends State<MapScreenView> {
                         IconButton(onPressed: () {
                             favoriteBtnTapped(currentSite);
                           },
+                          color: Colors.purpleAccent,
                           icon: sitesManager.isFavorite(currentSite) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
                         ),
                         Container(
@@ -113,6 +114,7 @@ class _MapScreenViewState extends State<MapScreenView> {
                         IconButton(onPressed: () {
                           visitedBtnTapped(currentSite);
                           },
+                            color: Colors.cyan,
                             icon: sitesManager.isVisited(currentSite) ? const Icon(Icons.visibility) :  const Icon(Icons.visibility_outlined),
                         )
                       ],
