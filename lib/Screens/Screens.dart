@@ -7,3 +7,4 @@ export 'EmptyScreen.dart';
 export 'SitesScene/DetailSiteView.dart';
 export 'SitesScene/SiteListView.dart';
 export 'SitesScene/SitesView.dart';
+export 'StatsScreen.dart';

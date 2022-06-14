@@ -26,6 +26,7 @@ class _HomeState extends State<Home> {
     const SitesView(),
     //Container(color: Colors.cyanAccent,)
     const MapScreenView(),
+    const StatsScreen(),
 
   ];
 
@@ -53,6 +54,7 @@ class _HomeState extends State<Home> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home),label: "東京"),
           BottomNavigationBarItem(icon: Icon(Icons.map),label: "Map" ),
+          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Stats")
         ],
         onTap: (index) {
           Provider.of<AppStateManager>(context, listen: false)
