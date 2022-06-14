@@ -68,6 +68,16 @@ class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProvider
       print("everything downloaded: $hasAllData, number of items yet: ${manager.sites.length}");
       setState(() {});
     }
+
+    print("List of categories is:");
+    Set<String> categories = {};
+    for (var site in manager.sites) {
+      categories.addAll(site.kind);
+    }
+    for (var item in categories) {
+      print(item);
+    }
+
     print("push to app");
     Provider.of<AppStateManager>(context, listen: false).dataLoadedFinished();
 

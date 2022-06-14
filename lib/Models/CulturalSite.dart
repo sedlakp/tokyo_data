@@ -1,4 +1,6 @@
 
+import 'package:tokyo_data/Models/Models.dart';
+
 class CulturalSite {
 
   String siteId;
@@ -15,6 +17,8 @@ class CulturalSite {
   String? open;
   String? close;
   String? days;
+
+  late final categories = SiteCategory.getSiteCategories(kind: kind);
 
   CulturalSite({
     required this.siteId,
