@@ -1,5 +1,6 @@
 
 import 'package:tokyo_data/Models/Models.dart';
+import 'package:intl/intl.dart';
 
 class CulturalSite {
 
@@ -19,6 +20,60 @@ class CulturalSite {
   String? days;
 
   late final categories = SiteCategory.getSiteCategories(kind: kind);
+
+  // TODO THESE 2 funcs do not work
+  // bool? get isOpen {
+  //   if ((openToday == null) || (isNowOpen == null)) {
+  //     return null;
+  //   }
+  //   return openToday! && isNowOpen!;
+  // }
+
+  // bool? get isNowOpen {
+  //   var now = DateTime.now();
+  //   //var time = DateFormat('HH:mm');
+  //   if ((open ?? "").isNotEmpty && (close ?? "").isNotEmpty) {
+  //     var start = DateFormat("HH:mm").parse(open!);
+  //     var end = DateFormat("HH:mm").parse(close!);
+  //
+  //     return now.isBefore(end) && now.isAfter(start);
+  //   }
+  //   return null;
+  //   // var open = DateFormat("HH:mm").parse(open);
+  //   // var close = DateFormat("HH:mm").parse(close);
+  //
+  // }
+
+  bool? get openToday {
+    var now = DateTime.now();
+    var day = now.weekday;
+    String dayJp;
+    switch (day) {
+      case 1: dayJp = "月";
+      break;
+      case 2: dayJp = "火";
+      break;
+      case 3: dayJp = "水";
+      break;
+      case 4: dayJp = "木";
+      break;
+      case 5: dayJp = "金";
+      break;
+      case 6: dayJp = "土";
+      break;
+      default: dayJp = "日";
+    }
+
+    if (days == "利用可能曜日特記事項のとおり" || days == "") {
+      return null;
+    }
+
+    if ((days ?? "").contains(dayJp)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   CulturalSite({
     required this.siteId,

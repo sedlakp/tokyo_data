@@ -59,6 +59,21 @@ class SiteListView extends StatelessWidget {
               ],),
               const SizedBox(height: 10,),
               Text(site.englishName, textAlign: TextAlign.left),
+              const SizedBox(height: 10,),
+              Row(
+                children: [
+                  Container(
+                    height: 20,
+                    width: 20,
+                    decoration: BoxDecoration(
+                        color: site.openToday == null ? Colors.grey : site.openToday! ? Colors.green : Colors.red,
+                        shape: BoxShape.circle
+                    ),
+                  ),
+                  SizedBox(width: 10,),
+                  if (site.openToday ?? false)Text("From ${site.open} to ${site.close}")
+                ],
+              ),
             ],
           ),
         )

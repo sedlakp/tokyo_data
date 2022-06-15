@@ -21,6 +21,7 @@ class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProvider
 
   //late AnimationController controller;
   late SitesManager manager = Provider.of<SitesManager>(context, listen: false);
+  late AppStateManager stateManager = Provider.of<AppStateManager>(context, listen: false);
 
   //List<CulturalSite> sites = [];
   String cursor = "";
@@ -69,17 +70,27 @@ class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProvider
       setState(() {});
     }
 
-    print("List of categories is:");
-    Set<String> categories = {};
+    Set<String?> days = {};
     for (var site in manager.sites) {
-      categories.addAll(site.kind);
-    }
-    for (var item in categories) {
-      print(item);
+      days.add(site.days);
     }
 
+    for (var item in days) {
+      print(item);
+    }
+    // print("List of categories is:");
+    // Set<String> categories = {};
+    // for (var site in manager.sites) {
+    //   categories.addAll(site.kind);
+    // }
+    // for (var item in categories) {
+    //   print(item);
+    // }
+
+
+
     print("push to app");
-    Provider.of<AppStateManager>(context, listen: false).dataLoadedFinished();
+    stateManager.dataLoadedFinished();
 
   }
 
