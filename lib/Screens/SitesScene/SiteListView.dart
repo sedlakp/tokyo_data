@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tokyo_data/Screens/SitesScene/DetailSiteView.dart';
 import 'package:tokyo_data/Models/Models.dart';
-import 'package:provider/provider.dart';
 
 class SiteListView extends StatelessWidget {
   SiteListView({Key? key, required this.sitesManager }): /*onGetNextPage = onGetNextPage ?? ((){}), */super(key: key);
@@ -60,23 +59,30 @@ class SiteListView extends StatelessWidget {
               const SizedBox(height: 10,),
               Text(site.englishName, textAlign: TextAlign.left),
               const SizedBox(height: 10,),
-              Row(
-                children: [
-                  Container(
-                    height: 20,
-                    width: 20,
-                    decoration: BoxDecoration(
-                        color: site.openToday == null ? Colors.grey : site.openToday! ? Colors.green : Colors.red,
-                        shape: BoxShape.circle
-                    ),
-                  ),
-                  SizedBox(width: 10,),
-                  if (site.openToday ?? false)Text("From ${site.open} to ${site.close}")
-                ],
-              ),
+              if (site.isOpen != null) timeIndicator(site)
             ],
           ),
         )
     );
   }
+  
+  
+  Widget timeIndicator(CulturalSite site) {
+    return Row(
+      children: [
+        Container(
+          height: 10,
+          width: 10,
+          decoration: BoxDecoration(
+              color: site.isOpen! ? Colors.green : Colors.red,
+              shape: BoxShape.circle
+          ),
+        ),
+        const SizedBox(width: 10,),
+        if (site.isOpen != null) Text("From ${site.open} to ${site.close}")
+      ],
+    );
+  }
+  
+  
 }

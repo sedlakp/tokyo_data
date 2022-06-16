@@ -21,30 +21,34 @@ class CulturalSite {
 
   late final categories = SiteCategory.getSiteCategories(kind: kind);
 
-  // TODO THESE 2 funcs do not work
-  // bool? get isOpen {
-  //   if ((openToday == null) || (isNowOpen == null)) {
-  //     return null;
-  //   }
-  //   return openToday! && isNowOpen!;
-  // }
+  bool? get isOpen {
+    if ((_openTodayWeekDay == null) || (_checkIsTimeOpen == null)) {
+      return null;
+    }
+    return _openTodayWeekDay! && _checkIsTimeOpen!;
+  }
 
-  // bool? get isNowOpen {
-  //   var now = DateTime.now();
-  //   //var time = DateFormat('HH:mm');
-  //   if ((open ?? "").isNotEmpty && (close ?? "").isNotEmpty) {
-  //     var start = DateFormat("HH:mm").parse(open!);
-  //     var end = DateFormat("HH:mm").parse(close!);
-  //
-  //     return now.isBefore(end) && now.isAfter(start);
-  //   }
-  //   return null;
-  //   // var open = DateFormat("HH:mm").parse(open);
-  //   // var close = DateFormat("HH:mm").parse(close);
-  //
-  // }
+  bool? get _checkIsTimeOpen {
+    if (open == "0:00" && close == "0:00") {
+        return null;
+    }
 
-  bool? get openToday {
+    var now = DateTime.now();
+    //var time = DateFormat('HH:mm');
+    if ((open ?? "").isNotEmpty && (close ?? "").isNotEmpty) {
+      var op = open!.split(":").map((e) => int.parse(e),);
+      var en = close!.split(":").map((e) => int.parse(e));
+
+      var n = now.hour*60+now.minute;
+      var o = op.first*60+op.last;
+      var e = en.first*60+en.last;
+
+      return (n<e) && (n>o);
+    }
+    return null;
+  }
+
+  bool? get _openTodayWeekDay {
     var now = DateTime.now();
     var day = now.weekday;
     String dayJp;
