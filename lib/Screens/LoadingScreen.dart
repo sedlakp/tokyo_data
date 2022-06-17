@@ -64,7 +64,7 @@ class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProvider
       var batch = await APIService.fetchCulturalSites2(limit: 50, cursor: cursor);
       cursor = batch.cursor;
       //sites.addAll(batch.siteList);
-      manager.sites.addAll(batch.siteList);
+      manager.sites.addAll(batch.siteList.where((element) => element.name.isNotEmpty));
       hasAllData = !batch.hasMoreData;
       print("everything downloaded: $hasAllData, number of items yet: ${manager.sites.length}");
       setState(() {});
