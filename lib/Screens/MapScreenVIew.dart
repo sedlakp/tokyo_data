@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:tokyo_data/Models/Models.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:tokyo_data/Screens/MapCardView.dart';
 import 'dart:async';
-import 'Screens.dart';
 
 
 class MapScreenView extends StatefulWidget {
@@ -78,58 +78,10 @@ class _MapScreenViewState extends State<MapScreenView> {
       itemBuilder: (context, index) {
         var currentSite = sitesManager.sites[index];
         return GestureDetector(
-          onTap: () { _onSiteTap(index); },
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: Card(
-              color: Colors.white.withAlpha(230),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        Text(currentSite.name, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
-                        Text(currentSite.kanaName, style: const TextStyle(fontSize: 11, color: Colors.blueGrey),),
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(onPressed: () {
-                            favoriteBtnTapped(currentSite);
-                          },
-                          color: Colors.purpleAccent,
-                          icon: sitesManager.isFavorite(currentSite) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
-                        ),
-                        Container(
-                          height: 80,
-                          width: 80,
-                          padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                            child: ElevatedButton(onPressed: () {
-                              pushToDetail(context, currentSite);
-                            },
-                              child: Icon(Icons.read_more),
-                              style: ElevatedButton.styleFrom(shape: CircleBorder()),
-                            ),
-
-                        ),
-                        IconButton(onPressed: () {
-                          visitedBtnTapped(currentSite);
-                          },
-                            color: Colors.cyan,
-                            icon: sitesManager.isVisited(currentSite) ? const Icon(Icons.visibility) :  const Icon(Icons.visibility_outlined),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
+            onTap: () {
+              _onSiteTap(index);
+            },
+            child: MapCardView(site: currentSite, updateMarkerCallback: _updateMarker,));
       },
 
     );
@@ -149,20 +101,6 @@ class _MapScreenViewState extends State<MapScreenView> {
   Future<void> _resetPosition() async {
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(firstSiteLocation));
-  }
-
-  void favoriteBtnTapped(CulturalSite site) {
-    setState(() {
-      sitesManager.handleFavorite(site);
-      _updateMarker(site);
-    });
-  }
-
-  void visitedBtnTapped(CulturalSite site) {
-    setState(() {
-      sitesManager.handleVisited(site);
-      _updateMarker(site);
-    });
   }
 
   void markerTapped(CulturalSite site) {
@@ -185,14 +123,6 @@ class _MapScreenViewState extends State<MapScreenView> {
       _updateMarker(site);
     }
     sitesManager.clearWaitingForMapUpdate();
-  }
-
-  void pushToDetail(BuildContext context, CulturalSite site) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) {
-          return DetailSiteView(site: site,);
-        },)
-    );
   }
 
   // MARK: - Setup methods
