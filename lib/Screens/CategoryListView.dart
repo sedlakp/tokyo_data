@@ -21,7 +21,7 @@ class _CategoryListViewState extends State<CategoryListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text(widget.category.name),),
       body: Consumer<SitesManager>(builder: (context, sitesManager, child) {
         var sites = sitesManager.sites.where((element) => element.categories.contains(widget.category)).toList();
         return ListView.builder(
