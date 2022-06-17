@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:async';
 import 'package:provider/provider.dart';
+import 'package:tokyo_data/Screens/TimeIndicatorView.dart';
 
 
 class DetailSiteView extends StatefulWidget {
@@ -31,7 +32,7 @@ class _DetailSiteViewState extends State<DetailSiteView> {
 
   late final Marker marker = Marker(
     markerId: MarkerId(widget.site.name),
-    position: LatLng(widget.site.latitude!, widget.site.longitude!),
+    position: LatLng(widget.site.latitude ?? 0, widget.site.longitude ?? 0),
     infoWindow: InfoWindow(
       title: widget.site.name,
       snippet: widget.site.address,
@@ -49,7 +50,7 @@ class _DetailSiteViewState extends State<DetailSiteView> {
     print(widget.site.longitude);
     return Scaffold(
       appBar: AppBar(
-          title: Text(widget.site.days ?? "")
+          title: Text("")
       ),
       body: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -57,14 +58,18 @@ class _DetailSiteViewState extends State<DetailSiteView> {
             clipBehavior: Clip.none,
             shrinkWrap: true,
             children: [
+              const SizedBox(height: 20,),
               Text(widget.site.name, style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.center),
               Text(widget.site.kanaName, style: const TextStyle(fontSize: 11, color: Colors.blueGrey),textAlign: TextAlign.center),
               Text(widget.site.address ?? "",textAlign: TextAlign.center),
-              setupMap(),
+              const SizedBox(height: 10,),
+              if (widget.site.latitude != null && widget.site.longitude != null) setupMap(),
               const SizedBox(height: 10,),
               setupEnglishText(),
-              const SizedBox(height: 20,),
+              const SizedBox(height: 10,),
               buttons(),
+              const SizedBox(height: 10,),
+              if (widget.site.isOpen != null) TimeIndicatorView(site: widget.site) else Text("${widget.site.days}"),
               const SizedBox(height: 20,),
               Text(widget.site.description.first),
               const SizedBox(height: 30,),
@@ -128,7 +133,7 @@ class _DetailSiteViewState extends State<DetailSiteView> {
           Positioned(
               bottom: 10,
               right: 10,
-              child: ElevatedButton(child: const Icon(Icons.pin_drop),onPressed: _resetPosition,)
+              child: ElevatedButton(onPressed: _resetPosition,child: const Icon(Icons.pin_drop),)
           )
         ]),
     );
@@ -164,4 +169,5 @@ class _DetailSiteViewState extends State<DetailSiteView> {
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_siteLocation));
   }
+
 }

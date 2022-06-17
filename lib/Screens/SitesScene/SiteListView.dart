@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tokyo_data/Screens/SitesScene/DetailSiteView.dart';
 import 'package:tokyo_data/Models/Models.dart';
+import 'package:tokyo_data/Screens/TimeIndicatorView.dart';
 
 class SiteListView extends StatelessWidget {
   SiteListView({Key? key, required this.sitesManager }): /*onGetNextPage = onGetNextPage ?? ((){}), */super(key: key);
@@ -49,40 +50,16 @@ class SiteListView extends StatelessWidget {
                     if (sitesManager.isFavorite(site)) const SizedBox(width: 5,),
                     if (sitesManager.isVisited(site)) const Icon(Icons.visibility, color: Colors.cyan,),
                     if (sitesManager.isVisited(site)) const SizedBox(width: 5,),
-                    Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        decoration:BoxDecoration(color: Colors.blueGrey, borderRadius: BorderRadius.circular(8)),
-                        child: Text(site.days ?? "",style: const TextStyle(color: Colors.white),)
-                    )
                   ],),
               ],),
               const SizedBox(height: 10,),
               Text(site.englishName, textAlign: TextAlign.left),
               const SizedBox(height: 10,),
-              if (site.isOpen != null) timeIndicator(site)
+              if (site.isOpen != null) TimeIndicatorView(site: site, mainAxisAlignment: MainAxisAlignment.start,) else Text("${site.days}"),
             ],
           ),
         )
     );
   }
-  
-  
-  Widget timeIndicator(CulturalSite site) {
-    return Row(
-      children: [
-        Container(
-          height: 10,
-          width: 10,
-          decoration: BoxDecoration(
-              color: site.isOpen! ? Colors.green : Colors.red,
-              shape: BoxShape.circle
-          ),
-        ),
-        const SizedBox(width: 10,),
-        if (site.isOpen != null) Text("From ${site.open} to ${site.close}")
-      ],
-    );
-  }
-  
   
 }
