@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tokyo_data/Screens/DashboardScreen.dart';
 import 'package:tokyo_data/Screens/Screens.dart';
 import 'package:provider/provider.dart';
 import 'package:tokyo_data/Models/Models.dart';
@@ -24,7 +25,7 @@ class _HomeState extends State<Home> {
 
   static List<Widget> tabPages = [
     const SitesView(),
-    //Container(color: Colors.cyanAccent,)
+    const DashboardScreen(),
     const MapScreenView(),
     const StatsScreen(),
 
@@ -50,9 +51,11 @@ class _HomeState extends State<Home> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         //backgroundColor: Colors.white.withAlpha(220),
+        type: BottomNavigationBarType.fixed,
         currentIndex: widget.currentTab,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home),label: "東京"),
+          BottomNavigationBarItem(icon: Icon(Icons.category), label: "Categories"),
           BottomNavigationBarItem(icon: Icon(Icons.map),label: "Map" ),
           BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Stats")
         ],
