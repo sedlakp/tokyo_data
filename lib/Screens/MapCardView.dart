@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tokyo_data/Models/Models.dart';
 import 'package:provider/provider.dart';
+import 'package:tokyo_data/Screens/TimeIndicatorView.dart';
 import 'Screens.dart';
 
 class MapCardView extends StatefulWidget {
@@ -29,9 +30,12 @@ class _MapCardViewState extends State<MapCardView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(widget.site.name, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
-                    Text(widget.site.kanaName, style: const TextStyle(fontSize: 11, color: Colors.blueGrey),),
+                    // todo add rolling animation for long names
+                    Text(widget.site.name, softWrap: false, overflow: TextOverflow.fade ,maxLines: 1, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
+                    Text(widget.site.kanaName, softWrap: false, overflow: TextOverflow.fade, maxLines: 1, textAlign: TextAlign.center, style: const TextStyle(fontSize: 11, color: Colors.blueGrey),),
+                    if (widget.site.isOpen != null) TimeIndicatorView(site: widget.site) else Text("${widget.site.days}")
                   ],
                 ),
                 Row(
@@ -92,4 +96,5 @@ class _MapCardViewState extends State<MapCardView> {
       widget.updateMarkerCallback(site);
     });
   }
+
 }
