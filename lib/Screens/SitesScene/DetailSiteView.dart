@@ -74,7 +74,7 @@ class _DetailSiteViewState extends State<DetailSiteView> {
               const SizedBox(height: 10,),
               buttons(),
               const SizedBox(height: 10,),
-              if (widget.site.isOpen != null) TimeIndicatorView(site: widget.site) else Text("${widget.site.days}"),
+              if (widget.site.isOpen != null) TimeIndicatorView(site: widget.site) else Text("${widget.site.days}", textAlign: TextAlign.center),
               const SizedBox(height: 20,),
               Text(widget.site.description.first),
               const SizedBox(height: 30,),
