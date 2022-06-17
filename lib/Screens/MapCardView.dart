@@ -35,7 +35,8 @@ class _MapCardViewState extends State<MapCardView> {
                     // todo add rolling animation for long names
                     Text(widget.site.name, softWrap: false, overflow: TextOverflow.fade ,maxLines: 1, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
                     Text(widget.site.kanaName, softWrap: false, overflow: TextOverflow.fade, maxLines: 1, textAlign: TextAlign.center, style: const TextStyle(fontSize: 11, color: Colors.blueGrey),),
-                    if (widget.site.isOpen != null) TimeIndicatorView(site: widget.site) else Text("${widget.site.days}")
+                    if (widget.site.isOpen != null) TimeIndicatorView(site: widget.site) else Text("${widget.site.days}"),
+                    Wrap(spacing: 8,children: getChips(),)
                   ],
                 ),
                 Row(
@@ -49,8 +50,8 @@ class _MapCardViewState extends State<MapCardView> {
                       icon: sitesManager.isFavorite(widget.site) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
                     ),
                     Container(
-                      height: 80,
-                      width: 80,
+                      height: 60,
+                      width: 60,
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
                       child: ElevatedButton(onPressed: () {
                         pushToDetail(context, widget.site);
@@ -95,6 +96,12 @@ class _MapCardViewState extends State<MapCardView> {
       sitesManager.handleVisited(site);
       widget.updateMarkerCallback(site);
     });
+  }
+
+  List<Chip> getChips(){
+    return widget.site.categories.map((e) {
+      return Chip(label: Text(e.name, style: TextStyle(fontSize: 11),));
+    },).toList();
   }
 
 }
