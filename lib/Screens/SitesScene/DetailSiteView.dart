@@ -130,6 +130,7 @@ class _DetailSiteViewState extends State<DetailSiteView> {
       child: Stack(
         children: [
           GoogleMap(
+            onMapCreated: _onMapCreated,
             rotateGesturesEnabled: false,
             tiltGesturesEnabled: false,
             myLocationButtonEnabled: false,
@@ -148,6 +149,10 @@ class _DetailSiteViewState extends State<DetailSiteView> {
           )
         ]),
     );
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
   }
 
   Widget setupEnglishText() {
