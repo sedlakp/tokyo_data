@@ -20,6 +20,8 @@ class SitesManager extends ChangeNotifier {
 
   bool ticker = true;
 
+  Set<CulturalSite> sitesWaitingForMapUpdate = {};
+
   List<CulturalSite> get visitedSites {
     return sites.where( (site) {
       return _visitedSitesIDs.contains(site.siteId);
@@ -43,13 +45,19 @@ class SitesManager extends ChangeNotifier {
   void handleFavorite(CulturalSite site) {
     isFavorite(site) ? removeFavoriteSite(site) : addFavoriteSite(site);
     ticker = !ticker;
+    sitesWaitingForMapUpdate.add(site);
     notifyListeners();
   }
 
   void handleVisited(CulturalSite site) {
     isVisited(site) ? removeVisitedSite(site) : addVisitedSite(site);
     ticker = !ticker;
+    sitesWaitingForMapUpdate.add(site);
     notifyListeners();
+  }
+
+  void clearWaitingForMapUpdate() {
+    sitesWaitingForMapUpdate = {};
   }
 
   void addVisitedSite(CulturalSite site) {

@@ -1,8 +1,5 @@
 
-
-import 'dart:ui';
-
-import 'package:tokyo_data/Models/Models.dart';
+import 'package:flutter/material.dart';
 
 enum SiteCategory {
   culturalProperty,
@@ -53,6 +50,13 @@ enum SiteCategory {
       case empty: return "";
       default: return "";
     }
+  }
+
+  IconData get icon {
+    switch (this) {
+      default: return Icons.castle;
+    }
+
   }
 
 }

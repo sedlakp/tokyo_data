@@ -5,6 +5,7 @@ import 'package:tokyo_data/Models/Models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:async';
+import 'package:provider/provider.dart';
 
 
 class DetailSiteView extends StatefulWidget {
@@ -19,6 +20,8 @@ class DetailSiteView extends StatefulWidget {
 
 class _DetailSiteViewState extends State<DetailSiteView> {
 
+  late final SitesManager sitesManager = Provider.of<SitesManager>(context,listen: false);
+
   final Completer<GoogleMapController> _controller = Completer();
 
   late final CameraPosition _siteLocation = CameraPosition(
@@ -26,24 +29,14 @@ class _DetailSiteViewState extends State<DetailSiteView> {
     zoom: 12,
   );
 
-  final Map<String, Marker> _markers = {};
-
-  void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller);
-    setState(() {
-      _markers.clear();
-        final marker = Marker(
-          markerId: MarkerId(widget.site.name),
-          position: LatLng(widget.site.latitude!, widget.site.longitude!),
-          infoWindow: InfoWindow(
-            title: widget.site.name,
-            snippet: widget.site.address,
-          ),
-        );
-        _markers[widget.site.name] = marker;
-
-    });
-  }
+  late final Marker marker = Marker(
+    markerId: MarkerId(widget.site.name),
+    position: LatLng(widget.site.latitude!, widget.site.longitude!),
+    infoWindow: InfoWindow(
+      title: widget.site.name,
+      snippet: widget.site.address,
+    ),
+  );
 
   @override
   void initState() {
@@ -71,11 +64,47 @@ class _DetailSiteViewState extends State<DetailSiteView> {
               const SizedBox(height: 10,),
               setupEnglishText(),
               const SizedBox(height: 20,),
+              buttons(),
+              const SizedBox(height: 20,),
               Text(widget.site.description.first),
               const SizedBox(height: 30,),
           ],),
 
       )
+    );
+  }
+
+  void favoriteBtnTapped(CulturalSite site) {
+    setState(() {
+      sitesManager.handleFavorite(site);
+    });
+  }
+
+  void visitedBtnTapped(CulturalSite site) {
+    setState(() {
+      sitesManager.handleVisited(site);
+    });
+  }
+
+  Widget buttons() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(onPressed: () {
+          favoriteBtnTapped(widget.site);
+        },
+          color: Colors.purpleAccent,
+          icon: sitesManager.isFavorite(widget.site) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
+        ),
+        const SizedBox(width: 40,),
+        IconButton(onPressed: () {
+          visitedBtnTapped(widget.site);
+        },
+          color: Colors.cyan,
+          icon: sitesManager.isVisited(widget.site) ? const Icon(Icons.visibility) :  const Icon(Icons.visibility_outlined),
+        )
+      ],
     );
   }
 
@@ -88,9 +117,8 @@ class _DetailSiteViewState extends State<DetailSiteView> {
             rotateGesturesEnabled: false,
             tiltGesturesEnabled: false,
             myLocationButtonEnabled: false,
-            onMapCreated: _onMapCreated,
             initialCameraPosition: _siteLocation,
-            markers: _markers.values.toSet(),
+            markers: {marker},
             gestureRecognizers: {
               Factory<OneSequenceGestureRecognizer>(
                     () => EagerGestureRecognizer(),

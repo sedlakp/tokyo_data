@@ -79,6 +79,8 @@ class CulturalSite {
     }
   }
 
+  // todo calculate full week calendar
+
   CulturalSite({
     required this.siteId,
     required this.description,

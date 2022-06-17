@@ -36,19 +36,24 @@ class _MapScreenViewState extends State<MapScreenView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          map(),
-          Positioned(
-            bottom: 10,
-            height: 200,
-            left: 0,
-            right: 0,
-            child: sitesList()
-          )
-        ],
-      ),
+    // consumer to update state when site value like favorite or visited changes
+    return Consumer<SitesManager>(builder: (context, _, child) {
+      updateMap();
+      return Scaffold(
+        body: Stack(
+          children: [
+            map(),
+            Positioned(
+                bottom: 10,
+                height: 200,
+                left: 0,
+                right: 0,
+                child: sitesList()
+            )
+          ],
+        ),
+      );
+    },
     );
   }
 
@@ -86,7 +91,7 @@ class _MapScreenViewState extends State<MapScreenView> {
                     Column(
                       children: [
                         Text(currentSite.name, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
-                        Text(currentSite.kanaName, style: TextStyle(fontSize: 11, color: Colors.blueGrey),),
+                        Text(currentSite.kanaName, style: const TextStyle(fontSize: 11, color: Colors.blueGrey),),
                       ],
                     ),
                     Row(
@@ -173,6 +178,15 @@ class _MapScreenViewState extends State<MapScreenView> {
     _markers[site.siteId] = createMarker(site);
   }
 
+  void updateMap() {
+    if (sitesManager.sitesWaitingForMapUpdate.isEmpty) { return; }
+    print("Update map with marker");
+    for (var site in sitesManager.sitesWaitingForMapUpdate) {
+      _updateMarker(site);
+    }
+    sitesManager.clearWaitingForMapUpdate();
+  }
+
   void pushToDetail(BuildContext context, CulturalSite site) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) {
@@ -189,7 +203,7 @@ class _MapScreenViewState extends State<MapScreenView> {
     setState(() {
       _markers.clear();
       for (final site in sitesManager.sites) {
-        _markers[site.siteId] = createMarker(site);
+        _updateMarker(site);
       }
 
       print(_markers.length);
