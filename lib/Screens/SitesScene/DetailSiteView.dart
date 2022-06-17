@@ -62,6 +62,11 @@ class _DetailSiteViewState extends State<DetailSiteView> {
               Text(widget.site.name, style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.center),
               Text(widget.site.kanaName, style: const TextStyle(fontSize: 11, color: Colors.blueGrey),textAlign: TextAlign.center),
               Text(widget.site.address ?? "",textAlign: TextAlign.center),
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 8,
+                children: getChips(),
+              ),
               const SizedBox(height: 10,),
               if (widget.site.latitude != null && widget.site.longitude != null) setupMap(),
               const SizedBox(height: 10,),
@@ -77,6 +82,12 @@ class _DetailSiteViewState extends State<DetailSiteView> {
 
       )
     );
+  }
+
+  List<Chip> getChips(){
+    return widget.site.categories.map((e) {
+      return Chip(label: Text(e.name));
+    },).toList();
   }
 
   void favoriteBtnTapped(CulturalSite site) {
