@@ -22,11 +22,11 @@ class SitesManager extends ChangeNotifier {
 
   Set<CulturalSite> sitesWaitingForMapUpdate = {};
 
-  late BarData userData = BarData("User's stats",[
+  BarData get userData { return BarData("User's stats",[
     BarItem(const Icon(Icons.favorite, color: Color(0xffef3054),), favoritedSites.length.toDouble(),"Favorited"),
     BarItem(const Icon(Icons.visibility, color: Color(0xffA69658),), visitedSites.length.toDouble(),"Visited"),
   ], maxValue: sites.length.toDouble(),
-  );
+  );}
 
   List<CulturalSite> get visitedSites {
     return sites.where( (site) {

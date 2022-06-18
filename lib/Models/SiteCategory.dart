@@ -17,13 +17,13 @@ enum SiteCategory {
   folkPropertyTangible,
   encyclopedia,
   folkPropertyIntangibleCustoms,
-  folkPropertyIntangibleEnt,
-  empty;
+  folkPropertyIntangibleEnt;
+  //empty;
 
   static List<SiteCategory> getSiteCategories({required List<String> kind}) {
     if (kind.isNotEmpty) {
       return kind.map((item) {
-        return SiteCategory.values.firstWhere((element) => item == element.name,orElse: () => SiteCategory.empty);
+        return SiteCategory.values.firstWhere((element) => item == element.name, orElse: () => SiteCategory.culturalProperty);
       },).toList();
     } else {return [];}
   }
@@ -47,7 +47,7 @@ enum SiteCategory {
       case encyclopedia: return "典籍";
       case folkPropertyIntangibleCustoms: return "無形民俗文化財（風俗慣習）";
       case folkPropertyIntangibleEnt: return "無形民俗文化財（民俗芸能）";
-      case empty: return "";
+      //case empty: return "";
       default: return "";
     }
   }

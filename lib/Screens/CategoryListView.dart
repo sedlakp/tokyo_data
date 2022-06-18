@@ -23,6 +23,7 @@ class _CategoryListViewState extends State<CategoryListView> {
     return Scaffold(
       appBar: AppBar(title: Text(widget.category.name),),
       body: Consumer<SitesManager>(builder: (context, sitesManager, child) {
+        print("Category list refreshed");
         var sites = sitesManager.sites.where((element) => element.categories.contains(widget.category)).toList();
         return ListView.builder(
           itemCount: sites.length,

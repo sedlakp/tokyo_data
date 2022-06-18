@@ -18,7 +18,7 @@ class PieChart2State extends State {
   int touchedIndex = -1;
   late final SitesManager sitesManager = Provider.of<SitesManager>(context,listen: false);
 
-  List<String> hexes = ["057c89","efbc04","c4ba07","072e60","930b1d","af390a","1f7c08","024277","e81497","037982","e81497","c91496"];
+  List<String> hexes = ["057c89","efbc04","c4ba07","072e60","930b1d","af390a","1f7c08","024277","e81497","037982","e81497","c91496","480187"];
   final _random = Random();
 
   late var shuffledHexes = [for (var i = 1; i <= SiteCategory.values.length; i++) hexes[_random.nextInt(hexes.length)]];
@@ -26,7 +26,7 @@ class PieChart2State extends State {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 0.6,
+      aspectRatio: 0.9,
       child: Card(
         color: Colors.white,
         child: Padding(
@@ -80,16 +80,20 @@ class PieChart2State extends State {
         color: Color(int.parse(hex)),
         text: cat.name,
         isSquare: false,
+        size: 16,
+        textColor: touchedIndex == index ? Colors.black : Colors.grey,
       );
 
     },).toList();
   }
 
-  Column getLegend() {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Widget getLegend() {
+    return Wrap(
+      spacing: 5,
+      runSpacing: 5,
+      //mainAxisSize: MainAxisSize.max,
+      //mainAxisAlignment: MainAxisAlignment.end,
+      //crossAxisAlignment: CrossAxisAlignment.start,
       children: getIndicators()
     );
   }
