@@ -30,26 +30,18 @@ class _StatsScreenState extends State<StatsScreen> {
         return ListView(
           children: [
             TokyoBarGraph(barData: manager.userData,barWidth: 30,),
-            TokyoPieGraph(),
-            Card(child: Text("Number of sites: ${manager.sites.length}")),
-            Card(child: Text("Number of visited sites: ${manager.visitedSites.length}")),
-            Card(child: Text("Number of favorited sites: ${manager.favoritedSites.length}")),
-            Card(child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: _getCategories(manager),
-            ),),
+            const TokyoPieGraph(),
           ],
         );
       });
   }
 
-  List<Widget> _getCategories(SitesManager manager) {
-    return SiteCategory.values.map((cat) {
-      var sites = manager.sites.where((element) => element.categories.contains(cat)).toList();
-      return Text("${cat.name} : ${sites.length}", textAlign: TextAlign.left,);
-    },).toList();
-  }
+  // List<Widget> _getCategories(SitesManager manager) {
+  //   return SiteCategory.values.map((cat) {
+  //     var sites = manager.sites.where((element) => element.categories.contains(cat)).toList();
+  //     return Text("${cat.name} : ${sites.length}", textAlign: TextAlign.left,);
+  //   },).toList();
+  // }
 
 }
 

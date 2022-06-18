@@ -62,10 +62,8 @@ class PieChart2State extends State {
                   ),
                 ),
               ),
+              const SizedBox(height: 20,),
               getLegend(),
-              const SizedBox(
-                width: 28,
-              ),
             ],
           ),
         ),

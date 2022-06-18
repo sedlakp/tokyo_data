@@ -30,7 +30,7 @@ class _CategoryListViewState extends State<CategoryListView> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                pushToDetail(context, index);
+                pushToDetail(context, sites[index]);
               },
                 child: SiteCell(site: sites[index]));
           },);
@@ -39,10 +39,10 @@ class _CategoryListViewState extends State<CategoryListView> {
     );
   }
 
-  void pushToDetail(BuildContext context, int index) {
+  void pushToDetail(BuildContext context, CulturalSite site) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) {
-          return DetailSiteView(site: sitesManager.sites[index],);
+          return DetailSiteView(site: site,);
         },)
     );
   }
