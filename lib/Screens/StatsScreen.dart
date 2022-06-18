@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tokyo_data/Models/Models.dart';
 import 'package:tokyo_data/Screens/tokyo_bar_graph.dart';
+import 'package:tokyo_data/Screens/tokyo_pie_graph.dart';
 
 class StatsScreen extends StatefulWidget {
   const StatsScreen({Key? key}) : super(key: key);
@@ -29,6 +30,7 @@ class _StatsScreenState extends State<StatsScreen> {
         return ListView(
           children: [
             TokyoBarGraph(barData: manager.userData,barWidth: 30,),
+            TokyoPieGraph(),
             Card(child: Text("Number of sites: ${manager.sites.length}")),
             Card(child: Text("Number of visited sites: ${manager.visitedSites.length}")),
             Card(child: Text("Number of favorited sites: ${manager.favoritedSites.length}")),
