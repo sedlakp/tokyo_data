@@ -7,6 +7,7 @@ import 'package:flutter/gestures.dart';
 import 'dart:async';
 import 'package:provider/provider.dart';
 import 'package:tokyo_data/Screens/TimeIndicatorView.dart';
+import 'package:tokyo_data/Models/custom_colors.dart';
 
 
 class DetailSiteView extends StatefulWidget {
@@ -31,6 +32,7 @@ class _DetailSiteViewState extends State<DetailSiteView> {
   );
 
   late final Marker marker = Marker(
+    icon: BitmapDescriptor.defaultMarkerWithHue(195),
     markerId: MarkerId(widget.site.name),
     position: LatLng(widget.site.latitude ?? 0, widget.site.longitude ?? 0),
     infoWindow: InfoWindow(
@@ -59,9 +61,9 @@ class _DetailSiteViewState extends State<DetailSiteView> {
             shrinkWrap: true,
             children: [
               const SizedBox(height: 20,),
-              Text(widget.site.name, style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.center),
-              Text(widget.site.kanaName, style: const TextStyle(fontSize: 11, color: Colors.blueGrey),textAlign: TextAlign.center),
-              Text(widget.site.address ?? "",textAlign: TextAlign.center),
+              Text(widget.site.name, style: Theme.of(context).textTheme.headlineLarge,textAlign: TextAlign.center),
+              Text(widget.site.kanaName, style: Theme.of(context).textTheme.headlineMedium,textAlign: TextAlign.center),
+              Text(widget.site.address ?? "",textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium ,),
               Wrap(
                 alignment: WrapAlignment.center,
                 spacing: 8,
@@ -110,14 +112,14 @@ class _DetailSiteViewState extends State<DetailSiteView> {
         IconButton(onPressed: () {
           favoriteBtnTapped(widget.site);
         },
-          color: Colors.purpleAccent,
+          color: CustomColors.pleasingPink,
           icon: sitesManager.isFavorite(widget.site) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
         ),
         const SizedBox(width: 40,),
         IconButton(onPressed: () {
           visitedBtnTapped(widget.site);
         },
-          color: Colors.cyan,
+          color: CustomColors.breeze,
           icon: sitesManager.isVisited(widget.site) ? const Icon(Icons.visibility) :  const Icon(Icons.visibility_outlined),
         )
       ],

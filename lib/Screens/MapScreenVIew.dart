@@ -161,11 +161,11 @@ class _MapScreenViewState extends State<MapScreenView> {
     bool isVisited = sitesManager.isVisited(site);
     // give preference to favorite
     if (isFavorite) {
-      return BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta);
+      return BitmapDescriptor.defaultMarkerWithHue(342);
     } else if (isVisited) {
-      return BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan);
+      return BitmapDescriptor.defaultMarkerWithHue(36);
     } else {
-      return BitmapDescriptor.defaultMarker;
+      return BitmapDescriptor.defaultMarkerWithHue(195);
     }
   }
 }

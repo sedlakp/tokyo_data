@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tokyo_data/TokyoTheme.dart';
 import 'Models/Models.dart';
 import 'Approuter.dart';
 
@@ -38,9 +39,7 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         title: 'Tokyo culture sites',
-        theme: ThemeData(
-          primarySwatch: Colors.blueGrey,
-        ),
+        theme: TokyoTheme.light(),
         home: Router(
           routerDelegate: _appRouter,
           backButtonDispatcher: RootBackButtonDispatcher(),

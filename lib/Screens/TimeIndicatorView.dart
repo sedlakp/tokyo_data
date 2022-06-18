@@ -23,9 +23,9 @@ class TimeIndicatorView extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10,),
-        Text("${site.open} - ${site.close}"),
+        Text("${site.open} - ${site.close}", style: Theme.of(context).textTheme.bodySmall,),
         const SizedBox(width: 10,),
-        Text("${site.days}"),
+        Text("${site.days}", style: Theme.of(context).textTheme.bodySmall,),
       ],
     );
   }

@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
           title: const Text("東京"),
-          backgroundColor: Colors.blueGrey.withAlpha(220),
+          //backgroundColor: Colors.black.withAlpha(220),
           shadowColor: Colors.transparent,
       ),
       body: IndexedStack(

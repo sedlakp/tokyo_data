@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tokyo_data/Models/Models.dart';
 import 'package:provider/provider.dart';
+import 'package:tokyo_data/Models/custom_colors.dart';
 import 'package:tokyo_data/Screens/TimeIndicatorView.dart';
 import 'Screens.dart';
 
@@ -34,7 +35,9 @@ class _MapCardViewState extends State<MapCardView> {
                   children: [
                     // todo add rolling animation for long names
                     Text(widget.site.name, softWrap: false, overflow: TextOverflow.fade ,maxLines: 1, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
+                    const SizedBox(height: 5,),
                     Text(widget.site.kanaName, softWrap: false, overflow: TextOverflow.fade, maxLines: 1, textAlign: TextAlign.center, style: const TextStyle(fontSize: 11, color: Colors.blueGrey),),
+                    const SizedBox(height: 5,),
                     if (widget.site.isOpen != null) TimeIndicatorView(site: widget.site) else Text("${widget.site.days}"),
                     Wrap(spacing: 8,children: getChips(),)
                   ],
@@ -46,7 +49,7 @@ class _MapCardViewState extends State<MapCardView> {
                     IconButton(onPressed: () {
                       favoriteBtnTapped(widget.site);
                     },
-                      color: Colors.purpleAccent,
+                      color: CustomColors.pleasingPink,
                       icon: sitesManager.isFavorite(widget.site) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
                     ),
                     Container(
@@ -64,7 +67,7 @@ class _MapCardViewState extends State<MapCardView> {
                     IconButton(onPressed: () {
                       visitedBtnTapped(widget.site);
                     },
-                      color: Colors.cyan,
+                      color: CustomColors.breeze,
                       icon: sitesManager.isVisited(widget.site) ? const Icon(Icons.visibility) :  const Icon(Icons.visibility_outlined),
                     )
                   ],
@@ -100,7 +103,7 @@ class _MapCardViewState extends State<MapCardView> {
 
   List<Chip> getChips(){
     return widget.site.categories.map((e) {
-      return Chip(label: Text(e.name, style: TextStyle(fontSize: 11),));
+      return Chip(label: Text(e.name, style: Theme.of(context).textTheme.bodySmall,));
     },).toList();
   }
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tokyo_data/Models/Models.dart';
 import 'package:provider/provider.dart';
+import 'package:tokyo_data/Models/custom_colors.dart';
 import 'package:tokyo_data/Screens/TimeIndicatorView.dart';
+import 'package:tokyo_data/Models/custom_colors.dart';
 
 class SiteCell extends StatefulWidget {
   const SiteCell({Key? key, required this.site}) : super(key: key);
@@ -27,19 +29,20 @@ class _SiteCellState extends State<SiteCell> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Flexible(child: Text(widget.site.name, style: const TextStyle(fontWeight: FontWeight.bold),)),
+                  Flexible(child: Text(widget.site.name, style: Theme.of(context).textTheme.titleMedium,)),
                   const SizedBox(width: 5,),
                   Row(children: [
-                    if (sitesManager.isFavorite(widget.site)) const Icon(Icons.favorite, color: Colors.purpleAccent,),
+                    if (sitesManager.isFavorite(widget.site)) const Icon(Icons.favorite, color: Color(0xffef3054),),
                     if (sitesManager.isFavorite(widget.site)) const SizedBox(width: 5,),
-                    if (sitesManager.isVisited(widget.site)) const Icon(Icons.visibility, color: Colors.cyan,),
+                    if (sitesManager.isVisited(widget.site)) const Icon(Icons.visibility, color: Color(0xffA69658),),
                     if (sitesManager.isVisited(widget.site)) const SizedBox(width: 5,),
                   ],),
                 ],),
               const SizedBox(height: 10,),
-              Text(widget.site.englishName, textAlign: TextAlign.left),
-              const SizedBox(height: 10,),
-              if (widget.site.isOpen != null) TimeIndicatorView(site: widget.site, mainAxisAlignment: MainAxisAlignment.start,) else Text("${widget.site.days}"),
+              Text(widget.site.englishName, style: Theme.of(context).textTheme.bodyMedium,textAlign: TextAlign.left),
+              const SizedBox(height: 15,),
+              if (widget.site.isOpen != null) TimeIndicatorView(site: widget.site, mainAxisAlignment: MainAxisAlignment.start,)
+              else Text("${widget.site.days}",style: Theme.of(context).textTheme.bodySmall,),
             ],
           ),
         )

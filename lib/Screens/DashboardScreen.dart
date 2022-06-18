@@ -26,7 +26,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 onTap: () {
                   _itemTapped(siteCategory);
                 },
-                child: Card(child: Center(child: Text(siteCategory.name),))
+                child: Card(child: Center(child: Text(siteCategory.name, style: Theme.of(context).textTheme.headlineMedium,),))
             );
           }),
     );
