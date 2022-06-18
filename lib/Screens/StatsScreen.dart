@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tokyo_data/Models/Models.dart';
+import 'package:tokyo_data/Screens/tokyo_bar_graph.dart';
 
 class StatsScreen extends StatefulWidget {
   const StatsScreen({Key? key}) : super(key: key);
@@ -18,12 +19,16 @@ class StatsScreen extends StatefulWidget {
 }
 
 class _StatsScreenState extends State<StatsScreen> {
+
+  late final SitesManager sitesManager = Provider.of<SitesManager>(context,listen: false);
+
   @override
   Widget build(BuildContext context) {
     return Consumer<SitesManager>(
       builder: (context, manager, child) {
         return ListView(
           children: [
+            TokyoBarGraph(barData: manager.userData,barWidth: 30,),
             Card(child: Text("Number of sites: ${manager.sites.length}")),
             Card(child: Text("Number of visited sites: ${manager.visitedSites.length}")),
             Card(child: Text("Number of favorited sites: ${manager.favoritedSites.length}")),
@@ -43,5 +48,6 @@ class _StatsScreenState extends State<StatsScreen> {
       return Text("${cat.name} : ${sites.length}", textAlign: TextAlign.left,);
     },).toList();
   }
+
 }
 

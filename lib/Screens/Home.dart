@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-          title: const Text("東京"),
+          title: const Text("Tokyo sites"),
           //backgroundColor: Colors.black.withAlpha(220),
           shadowColor: Colors.transparent,
       ),
