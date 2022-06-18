@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:tokyo_data/Models/Models.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'dart:math';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);
@@ -23,9 +26,19 @@ class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProvider
   late SitesManager manager = Provider.of<SitesManager>(context, listen: false);
   late AppStateManager stateManager = Provider.of<AppStateManager>(context, listen: false);
 
+  Random _random = Random();
+
   //List<CulturalSite> sites = [];
   String cursor = "";
   bool hasAllData = false;
+
+  List<RotateAnimatedText> get texts {
+    var list = [RotateAnimatedText("東京")];
+    var sitesList = manager.sites.map((e) => RotateAnimatedText(e.name)).toList();
+    sitesList.shuffle();
+    list.addAll(sitesList.take(5));
+    return list;
+  }
 
   double get progress {
     return manager.sites.length/250 <= 1 ? manager.sites.length/250 : 1;
@@ -47,15 +60,28 @@ class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
+      body: Padding(
           padding: const EdgeInsets.all(20),
-          child: LinearProgressIndicator(
-            value: progress,
-
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  const SizedBox(width: 20.0, height: 100.0),
+                  Text('Explore'.toUpperCase(), style: GoogleFonts.montserrat(fontSize: 16),),
+                  const SizedBox(width: 20.0, height: 100.0),
+                  DefaultTextStyle(
+                    style: GoogleFonts.kleeOne(fontSize: 22, color: Colors.black),
+                    child: AnimatedTextKit(
+                      animatedTexts: texts, //[RotateAnimatedText("東京"), RotateAnimatedText("新宿"), RotateAnimatedText("渋谷") ],
+                    ),
+                  ),
+                ],
+              ),
+              LinearProgressIndicator(value: progress,),
+            ],
           ),
         ),
-      ),
     );
   }
 
@@ -70,44 +96,8 @@ class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProvider
       setState(() {});
     }
 
-    Set<String?> days = {};
-    for (var site in manager.sites) {
-      days.add(site.days);
-    }
-
-    for (var item in days) {
-      print(item);
-    }
-    // print("List of categories is:");
-    // Set<String> categories = {};
-    // for (var site in manager.sites) {
-    //   categories.addAll(site.kind);
-    // }
-    // for (var item in categories) {
-    //   print(item);
-    // }
-
-
-
     print("push to app");
     stateManager.dataLoadedFinished();
 
   }
-
-  // void setupAnimation() {
-  //   controller = AnimationController(
-  //     vsync: this,
-  //     duration: const Duration(seconds: 3),
-  //   )..addListener(() {
-  //     setState(() {}); // update the progress view
-  //   });
-  //   controller.addStatusListener((AnimationStatus status){
-  //     print(status);
-  //     // wait for animation to finish
-  //     if (status == AnimationStatus.completed) {
-  //       Provider.of<AppStateManager>(context, listen: false).dataLoadedFinished();
-  //     }
-  //   });
-  //   controller.forward(); // start animation
-  // }
 }

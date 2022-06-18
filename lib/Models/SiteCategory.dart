@@ -45,8 +45,8 @@ enum SiteCategory {
       case historicalMaterial: return "歴史資料";
       case folkPropertyTangible: return "有形民俗文化財";
       case encyclopedia: return "典籍";
-      case folkPropertyIntangibleCustoms: return "無形民俗文化財（風俗慣習)";
-      case folkPropertyIntangibleEnt: return "無形民俗文化財（民俗芸能)";
+      case folkPropertyIntangibleCustoms: return "無形民俗文化財（風俗慣習）";
+      case folkPropertyIntangibleEnt: return "無形民俗文化財（民俗芸能）";
       case empty: return "";
       default: return "";
     }
