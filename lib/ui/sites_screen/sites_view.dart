@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tokyo_data/Models/Models.dart';
-import 'SiteListView.dart';
+import 'package:tokyo_data/models/models.dart';
+import 'site_list_view.dart';
 import 'package:provider/provider.dart';
 
 

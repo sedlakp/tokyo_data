@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:tokyo_data/Models/Models.dart';
+import 'package:tokyo_data/models/models.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'dart:math';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);
@@ -25,8 +24,6 @@ class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProvider
   //late AnimationController controller;
   late SitesManager manager = Provider.of<SitesManager>(context, listen: false);
   late AppStateManager stateManager = Provider.of<AppStateManager>(context, listen: false);
-
-  Random _random = Random();
 
   //List<CulturalSite> sites = [];
   String cursor = "";

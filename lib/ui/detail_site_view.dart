@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tokyo_data/Models/Models.dart';
+import 'package:tokyo_data/models/models.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:async';
 import 'package:provider/provider.dart';
-import 'package:tokyo_data/Screens/TimeIndicatorView.dart';
-import 'package:tokyo_data/Models/custom_colors.dart';
+import 'package:tokyo_data/ui/time_indicator_view.dart';
+import 'package:tokyo_data/models/custom_colors.dart';
 
 
 class DetailSiteView extends StatefulWidget {
@@ -52,7 +52,7 @@ class _DetailSiteViewState extends State<DetailSiteView> {
     print(widget.site.longitude);
     return Scaffold(
       appBar: AppBar(
-          title: Text("")
+          title: const Text("")
       ),
       body: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -78,7 +78,7 @@ class _DetailSiteViewState extends State<DetailSiteView> {
               const SizedBox(height: 10,),
               if (widget.site.isOpen != null) TimeIndicatorView(site: widget.site) else Text("${widget.site.days}", textAlign: TextAlign.center),
               const SizedBox(height: 20,),
-              Text(widget.site.description.first),
+              Text(widget.site.description.first, style: Theme.of(context).textTheme.bodyMedium,),
               const SizedBox(height: 30,),
           ],),
 

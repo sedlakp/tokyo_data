@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'Models.dart';
+import 'models.dart';
 import 'package:flutter/material.dart';
 
 class SitesManager extends ChangeNotifier {

@@ -1,8 +1,7 @@
 
-
 import 'package:flutter/material.dart';
-import 'package:tokyo_data/Models/Models.dart';
-import 'package:tokyo_data/Screens/Screens.dart';
+import 'package:tokyo_data/models/models.dart';
+import 'package:tokyo_data/ui/screens.dart';
 
 //https://medium.com/flutter/learning-flutters-new-navigation-and-routing-system-7c9068155ade
 

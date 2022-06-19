@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tokyo_data/Models/Models.dart';
+import 'package:tokyo_data/models/models.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {

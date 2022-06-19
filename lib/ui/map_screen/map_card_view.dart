@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tokyo_data/Models/Models.dart';
+import 'package:tokyo_data/models/models.dart';
 import 'package:provider/provider.dart';
 import 'package:tokyo_data/Models/custom_colors.dart';
-import 'package:tokyo_data/Screens/TimeIndicatorView.dart';
-import 'Screens.dart';
+import 'package:tokyo_data/ui/time_indicator_view.dart';
+import '../screens.dart';
 
 class MapCardView extends StatefulWidget {
   const MapCardView({Key? key, required this.site, required this.updateMarkerCallback}) : super(key: key);

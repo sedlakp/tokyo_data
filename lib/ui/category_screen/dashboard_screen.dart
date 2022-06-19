@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:tokyo_data/Models/Models.dart';
-import 'CategoryListView.dart';
+import 'package:tokyo_data/models/models.dart';
+import 'category_list_view.dart';
 
 
 class DashboardScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: GridView.builder(
           itemCount: SiteCategory.values.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),

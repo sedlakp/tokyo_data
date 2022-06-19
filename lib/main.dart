@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tokyo_data/TokyoTheme.dart';
-import 'Models/Models.dart';
-import 'Approuter.dart';
+import 'package:tokyo_data/tokyo_theme.dart';
+import 'models/models.dart';
+import 'approuter.dart';
 
 void main() {
   runApp(const MyApp());

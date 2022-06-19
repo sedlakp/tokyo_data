@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tokyo_data/Models/Models.dart';
-import 'package:tokyo_data/Screens/SitesScene/SiteCell.dart';
-import 'package:tokyo_data/Screens/SitesScene/DetailSiteView.dart';
+import 'package:tokyo_data/models/models.dart';
+import 'package:tokyo_data/ui/sites_screen/site_cell.dart';
+import 'package:tokyo_data/ui/detail_site_view.dart';
 
 class CategoryListView extends StatefulWidget {
   const CategoryListView({Key? key, required this.category}) : super(key: key);

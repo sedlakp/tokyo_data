@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:tokyo_data/Models/Models.dart';
+import 'package:tokyo_data/models/models.dart';
 import 'package:collection/collection.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,7 +20,7 @@ class _TokyoBarGraphState extends State<TokyoBarGraph> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 300,
       child: Card(
         child: Padding(
@@ -28,7 +28,7 @@ class _TokyoBarGraphState extends State<TokyoBarGraph> {
           child: Column(
             children: [
               Text(widget.barData.barTitle,style: Theme.of(context).textTheme.headlineLarge,),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               Expanded(child: BarChart(mainBarData())),
             ],
           ),

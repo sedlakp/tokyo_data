@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:tokyo_data/Models/Models.dart';
+import 'package:tokyo_data/models/models.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tokyo_data/Screens/MapCardView.dart';
+import 'map_card_view.dart';
 import 'dart:async';
 
 
@@ -98,10 +98,10 @@ class _MapScreenViewState extends State<MapScreenView> {
     controller.animateCamera(CameraUpdate.newCameraPosition(siteLocation));
   }
 
-  Future<void> _resetPosition() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(firstSiteLocation));
-  }
+  // Future<void> _resetPosition() async {
+  //   final GoogleMapController controller = await _controller.future;
+  //   controller.animateCamera(CameraUpdate.newCameraPosition(firstSiteLocation));
+  // }
 
   void markerTapped(CulturalSite site) {
     // scroll to the item and focus it

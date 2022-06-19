@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tokyo_data/Screens/SitesScene/DetailSiteView.dart';
-import 'package:tokyo_data/Models/Models.dart';
-import 'package:tokyo_data/Screens/SitesScene/SiteCell.dart';
-import 'package:tokyo_data/Screens/TimeIndicatorView.dart';
+import 'package:tokyo_data/ui/screens.dart';
+import 'package:tokyo_data/models/models.dart';
+import 'site_cell.dart';
 
 class SiteListView extends StatelessWidget {
-  SiteListView({Key? key, required this.sitesManager }): /*onGetNextPage = onGetNextPage ?? ((){}), */super(key: key);
+  const SiteListView({Key? key, required this.sitesManager }): super(key: key);
 
-  late final SitesManager sitesManager;
-  //final Function onGetNextPage;
+  final SitesManager sitesManager;
 
   @override
   Widget build(BuildContext context) {

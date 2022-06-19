@@ -1,6 +1,5 @@
 
-import 'package:tokyo_data/Models/Models.dart';
-import 'package:intl/intl.dart';
+import 'package:tokyo_data/models/models.dart';
 
 class CulturalSite {
 

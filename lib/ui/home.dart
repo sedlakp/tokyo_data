@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tokyo_data/Screens/DashboardScreen.dart';
-import 'package:tokyo_data/Screens/Screens.dart';
+import 'package:tokyo_data/ui/screens.dart';
 import 'package:provider/provider.dart';
-import 'package:tokyo_data/Models/Models.dart';
+import 'package:tokyo_data/models/models.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key, required this.currentTab}) : super(key: key);
@@ -10,7 +9,7 @@ class Home extends StatefulWidget {
   static MaterialPage page(int currentTab) {
     return MaterialPage(
       name: "/",
-      key: ValueKey("/"),
+      key: const ValueKey("/"),
       child: Home(currentTab: currentTab,),
     );
   }

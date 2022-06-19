@@ -7,7 +7,7 @@ class EmptyScreen extends StatelessWidget {
   static MaterialPage page(color) {
     return MaterialPage(
       name: "/splash2",
-      key: ValueKey("/splash2"),
+      key: const ValueKey("/splash2"),
       child: EmptyScreen(color: color),
     );
   }
