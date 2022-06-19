@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tokyo_data/models/models.dart';
-
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:async';
 import 'package:provider/provider.dart';
 import 'package:tokyo_data/ui/time_indicator_view.dart';
 import 'package:tokyo_data/models/custom_colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class DetailSiteView extends StatefulWidget {
@@ -78,12 +79,31 @@ class _DetailSiteViewState extends State<DetailSiteView> {
               const SizedBox(height: 10,),
               if (widget.site.isOpen != null) TimeIndicatorView(site: widget.site) else Text("${widget.site.days}", textAlign: TextAlign.center),
               const SizedBox(height: 20,),
-              Text(widget.site.description.first, style: Theme.of(context).textTheme.bodyMedium,),
+              //Text(widget.site.description.first, style: Theme.of(context).textTheme.bodyMedium,),
+              Html(
+                data: widget.site.description.first,
+                style: {
+                  "body": Style(
+                    fontFamily:"Meiryo",//"Hiragino Kaku Gothic Pro",
+                    fontSize: FontSize(14),
+                    //padding: EdgeInsets.all(6),
+                  ),
+                },
+                onLinkTap: (String? url, RenderContext context, Map<String, String> attributes, element) {
+                  print("tapped on $url");
+                  _launchUrl(url!);
+                },
+              ),
               const SizedBox(height: 30,),
           ],),
 
       )
     );
+  }
+
+  void _launchUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (!await launchUrl(uri,mode: LaunchMode.externalApplication)) throw 'Could not launch $uri';
   }
 
   List<Chip> getChips(){
