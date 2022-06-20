@@ -60,18 +60,22 @@ class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProvider
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(width: 40.0, height: 150.0),
                   Text('Explore'.toUpperCase(), style: GoogleFonts.montserrat(fontSize: 20),),
-                  const SizedBox(width: 20.0, height: 150.0),
-                  DefaultTextStyle(
-                    style: GoogleFonts.kleeOne(fontSize: 40, color: Colors.black),
-                    child: AnimatedTextKit(
-                      repeatForever: true,
-                      animatedTexts: texts, //[RotateAnimatedText("東京"), RotateAnimatedText("新宿"), RotateAnimatedText("渋谷") ],
+                  const SizedBox(width: 15.0, height: 150.0),
+                  SizedBox(
+                    width: 120,
+                    child: DefaultTextStyle(
+                      style: GoogleFonts.kleeOne(fontSize: 40, color: Colors.black),
+                      child: AnimatedTextKit(
+                        repeatForever: true,
+                        animatedTexts: texts, //[RotateAnimatedText("東京"), RotateAnimatedText("新宿"), RotateAnimatedText("渋谷") ],
+                      ),
                     ),
                   ),
                 ],
