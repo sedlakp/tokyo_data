@@ -46,11 +46,12 @@ class _MapCardViewState extends State<MapCardView> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(onPressed: () {
-                      favoriteBtnTapped(widget.site);
-                    },
-                      color: CustomColors.pleasingPink,
-                      icon: sitesManager.isFavorite(widget.site) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
+                    ElevatedButton(
+                      onPressed: () {
+                        favoriteBtnTapped(widget.site);
+                      },
+                      style: ElevatedButton.styleFrom(shape: const CircleBorder(), primary: CustomColors.pleasingPink),
+                      child: sitesManager.isFavorite(widget.site) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
                     ),
                     Container(
                       height: 60,
@@ -64,12 +65,13 @@ class _MapCardViewState extends State<MapCardView> {
                       ),
 
                     ),
-                    IconButton(onPressed: () {
-                      visitedBtnTapped(widget.site);
-                    },
-                      color: CustomColors.breeze,
-                      icon: sitesManager.isVisited(widget.site) ? const Icon(Icons.visibility) :  const Icon(Icons.visibility_outlined),
-                    )
+                    ElevatedButton(
+                      onPressed: () {
+                        visitedBtnTapped(widget.site);
+                      },
+                      style: ElevatedButton.styleFrom(shape: const CircleBorder(), primary: CustomColors.gremlin),
+                      child: sitesManager.isVisited(widget.site) ? const Icon(Icons.visibility) :  const Icon(Icons.visibility_outlined),
+                    ),
                   ],
                 )
               ],
