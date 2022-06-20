@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-          title: const Text("Tokyo sites"),
+          title: const Text("東京 Sites"),
           //backgroundColor: Colors.black.withAlpha(220),
           shadowColor: Colors.transparent,
        // actions: [IconButton(onPressed: showHelp, icon: const Icon(Icons.help_outline))],
@@ -54,10 +54,10 @@ class _HomeState extends State<Home> {
         type: BottomNavigationBarType.fixed,
         currentIndex: widget.currentTab,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: "東京"),
-          BottomNavigationBarItem(icon: Icon(Icons.category), label: "Categories"),
-          BottomNavigationBarItem(icon: Icon(Icons.map),label: "Map" ),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Stats")
+          BottomNavigationBarItem(icon: Icon(Icons.home),label: "SITES"),
+          BottomNavigationBarItem(icon: Icon(Icons.category), label: "EXPLORE"),
+          BottomNavigationBarItem(icon: Icon(Icons.map),label: "MAP" ),
+          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "STATS")
         ],
         onTap: (index) {
           Provider.of<AppStateManager>(context, listen: false)
