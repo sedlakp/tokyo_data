@@ -43,6 +43,7 @@ class _HomeState extends State<Home> {
           title: const Text("Tokyo sites"),
           //backgroundColor: Colors.black.withAlpha(220),
           shadowColor: Colors.transparent,
+       // actions: [IconButton(onPressed: showHelp, icon: const Icon(Icons.help_outline))],
       ),
       body: IndexedStack(
         index: widget.currentTab,
@@ -63,6 +64,14 @@ class _HomeState extends State<Home> {
               .goToTab(index);
         },
       ),
+    );
+  }
+
+  void showHelp() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) {
+          return EmptyScreen(color: Colors.orange);
+        },)
     );
   }
 

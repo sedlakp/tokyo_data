@@ -30,11 +30,10 @@ class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProvider
   bool hasAllData = false;
 
   List<RotateAnimatedText> get texts {
-    var list = [RotateAnimatedText("東京")];
-    var sitesList = manager.sites.map((e) => RotateAnimatedText(e.name)).toList();
+    var list = ["東京", "千代田", "中央", "港", "新宿", "台東", "渋谷", "豊島"];
+    var sitesList = list.map((e) => RotateAnimatedText(e)).toList();
     sitesList.shuffle();
-    list.addAll(sitesList.take(5));
-    return list;
+    return sitesList;
   }
 
   double get progress {
@@ -63,13 +62,15 @@ class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProvider
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(width: 20.0, height: 100.0),
-                  Text('Explore'.toUpperCase(), style: GoogleFonts.montserrat(fontSize: 16),),
-                  const SizedBox(width: 20.0, height: 100.0),
+                  const SizedBox(width: 40.0, height: 150.0),
+                  Text('Explore'.toUpperCase(), style: GoogleFonts.montserrat(fontSize: 20),),
+                  const SizedBox(width: 20.0, height: 150.0),
                   DefaultTextStyle(
-                    style: GoogleFonts.kleeOne(fontSize: 22, color: Colors.black),
+                    style: GoogleFonts.kleeOne(fontSize: 40, color: Colors.black),
                     child: AnimatedTextKit(
+                      repeatForever: true,
                       animatedTexts: texts, //[RotateAnimatedText("東京"), RotateAnimatedText("新宿"), RotateAnimatedText("渋谷") ],
                     ),
                   ),
