@@ -81,55 +81,63 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     onTap: () {
                       _itemTapped(siteCategory);
                     },
-                    child: Card(
-                      clipBehavior: Clip.hardEdge,
-                        child: Stack(
-                            children: [
-                              Positioned(
-                                top:0,left: 0,bottom: 0,right: 0,
-                                child: Container(
-                                  foregroundDecoration: const BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Colors.black87,
-                                        Colors.transparent,
-                                      ],
-                                      begin: Alignment.bottomCenter,
-                                      end: Alignment.topCenter,
-                                      stops: [0, 0.5],
-                                    ),
-                                  ),
-                                  child: Image(image: siteCategory.image,fit: BoxFit.cover)
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      bottom: 5,
-                                      child: SizedBox(
-                                        width: MediaQuery.of(context).size.width/2-40,
-                                        child: Text(
-                                          maxLines: 3,
-                                          siteCategory.name,
-                                          style: GoogleFonts.montserrat(fontSize: 16,color: Colors.white),
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ]),//Stack(
-
-                    )
+                    child: categoryCard(siteCategory),
                 );
               }),
         ],
       );
   }
 
+
+  Widget categoryCard(SiteCategory siteCategory) {
+    return Card(
+      clipBehavior: Clip.hardEdge,
+      child: Stack(
+          children: [
+            Positioned(
+              top:0,left: 0,bottom: 0,right: 0,
+              child: dimmedImage(siteCategory),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Stack(
+                children: [
+                  Positioned(
+                    bottom: 5,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width/2-40,
+                      child: Text(
+                        maxLines: 3,
+                        siteCategory.name,
+                        style: GoogleFonts.montserrat(fontSize: 16,color: Colors.white),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ]),//Stack(
+
+    );
+  }
+
+  Widget dimmedImage(SiteCategory siteCategory) {
+    return Container(
+        foregroundDecoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.black87,
+              Colors.transparent,
+            ],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            stops: [0, 0.5],
+          ),
+        ),
+        child: Image(image: siteCategory.image,fit: BoxFit.cover)
+    );
+  }
 
   void _itemTapped(SiteCategory category) {
     Navigator.push(context,
