@@ -67,6 +67,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         children: [
           const SizedBox(height: 16,),
           Text("Categories", style: GoogleFonts.montserrat(fontSize: 20, fontWeight: FontWeight.w500)),
+          const SizedBox(height: 16,),
           GridView.builder(
             primary: false,
               physics: const NeverScrollableScrollPhysics(),
