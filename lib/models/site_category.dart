@@ -59,4 +59,11 @@ enum SiteCategory {
 
   }
 
+  AssetImage get image {
+    switch (this) {
+      case SiteCategory.craftsmanship: return const AssetImage("assets/sake.jpg");
+      default: return const AssetImage("assets/tokyo.jpg");
+    }
+  }
+
 }
