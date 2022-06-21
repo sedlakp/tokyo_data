@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:tokyo_data/Models/custom_colors.dart';
 import 'package:tokyo_data/models/models.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'map_card_view.dart';
@@ -43,6 +44,11 @@ class _MapScreenViewState extends State<MapScreenView> {
         body: Stack(
           children: [
             map(),
+
+            Positioned(
+                top: 100,
+                right: 8,
+                child: IconButton(iconSize: 38, onPressed: questionPressed,icon: const Icon(Icons.info_outline, color: Color(0xff3a3e45),),)),
             Positioned(
                 bottom: 10,
                 height: 200,
@@ -167,5 +173,21 @@ class _MapScreenViewState extends State<MapScreenView> {
     } else {
       return BitmapDescriptor.defaultMarkerWithHue(195);
     }
+  }
+
+  void questionPressed() {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Map info'),
+        content: const Text('Some sites share the same location, tapping more than one time on a map pin might reveal a different site.'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'OK'),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 }
