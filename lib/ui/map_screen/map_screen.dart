@@ -4,6 +4,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:tokyo_data/Models/custom_colors.dart';
 import 'package:tokyo_data/models/models.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:tokyo_data/ui/search_bar_view.dart';
 import 'map_card_view.dart';
 import 'dart:async';
 
@@ -44,7 +45,12 @@ class _MapScreenViewState extends State<MapScreenView> {
         body: Stack(
           children: [
             map(),
-
+            Positioned(
+              top: 110,
+              left: 60,
+              right: 60,
+              child: SearchBarView(textChanged: onTextChanged,),
+            ),
             Positioned(
                 top: 100,
                 right: 8,
@@ -190,4 +196,10 @@ class _MapScreenViewState extends State<MapScreenView> {
       ),
     );
   }
+
+  void onTextChanged(String text) {
+    // TODO filter list of sites, also reload the markers on map?
+  }
+
+
 }

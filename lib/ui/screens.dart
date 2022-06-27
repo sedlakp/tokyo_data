@@ -9,3 +9,5 @@ export 'sites_screen/site_list_view.dart';
 export 'sites_screen/sites_view.dart';
 export 'stats_screen/stats_screen.dart';
 export 'category_screen/dashboard_screen.dart';
+
+export 'search_bar_view.dart';
