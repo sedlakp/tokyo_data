@@ -6,16 +6,19 @@ import 'package:provider/provider.dart';
 import "dart:math";
 import 'indicator_view.dart';
 
+
 class TokyoPieGraph extends StatefulWidget {
-  const TokyoPieGraph({Key? key}) : super(key: key);
 
+  final List<TokyoPieItem> items;
+  final String pieName;
 
+  const TokyoPieGraph({Key? key, required this.pieName,required this.items}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => PieChart2State();
+  State<StatefulWidget> createState() => _TokyoPieGraphState();
 }
 
-class PieChart2State extends State {
+class _TokyoPieGraphState extends State<TokyoPieGraph> {
 
   int touchedIndex = -1;
   late final SitesManager sitesManager = Provider.of<SitesManager>(context,listen: false);
@@ -23,7 +26,7 @@ class PieChart2State extends State {
   List<String> hexes = ["057c89","efbc04","c4ba07","072e60","930b1d","af390a","1f7c08","024277","e81497","037982","e81497","c91496","480187"];
   final _random = Random();
 
-  late var shuffledHexes = [for (var i = 1; i <= SiteCategory.categoriesNoCulturalProperty().length; i++) hexes[_random.nextInt(hexes.length)]];
+  late var shuffledHexes = [for (var i = 1; i <= widget.items.length; i++) hexes[_random.nextInt(hexes.length)]];
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class PieChart2State extends State {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: <Widget>[
-                Text("Site Categories",style: Theme.of(context).textTheme.headlineLarge,),
+                Text(widget.pieName,style: Theme.of(context).textTheme.headlineLarge,),
                 const SizedBox(height: 20,),
                 Expanded(
                     child: PieChart(
@@ -72,7 +75,7 @@ class PieChart2State extends State {
   }
 
   List<Indicator> getIndicators() {
-    return SiteCategory.categoriesNoCulturalProperty().mapIndexed((index, cat) {
+    return widget.items.mapIndexed((index, cat) {
       String hex = "0xff${shuffledHexes[index]}";
       return Indicator(
         color: Color(int.parse(hex)),
@@ -98,8 +101,7 @@ class PieChart2State extends State {
 
 
   List<PieChartSectionData> showingSections() {
-    return SiteCategory.categoriesNoCulturalProperty().mapIndexed((index, cat) {
-        var sites = sitesManager.sites.where((element) => element.categories.contains(cat)).toList();
+    return widget.items.mapIndexed((index, item) {
 
         final isTouched = index == touchedIndex;
         final fontSize = isTouched ? 16.0 : 11.0;
@@ -108,8 +110,8 @@ class PieChart2State extends State {
 
         return PieChartSectionData(
           color: Color(int.parse(hex)),
-          value: sites.length.toDouble(),
-          title: "${sites.length}",
+          value: item.value,
+          title: "${item.value.toInt()}",
           radius: radius,
           titleStyle: TextStyle(
               fontSize: fontSize,
