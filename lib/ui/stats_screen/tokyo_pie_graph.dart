@@ -9,6 +9,8 @@ import 'indicator_view.dart';
 class TokyoPieGraph extends StatefulWidget {
   const TokyoPieGraph({Key? key}) : super(key: key);
 
+
+
   @override
   State<StatefulWidget> createState() => PieChart2State();
 }
@@ -21,7 +23,7 @@ class PieChart2State extends State {
   List<String> hexes = ["057c89","efbc04","c4ba07","072e60","930b1d","af390a","1f7c08","024277","e81497","037982","e81497","c91496","480187"];
   final _random = Random();
 
-  late var shuffledHexes = [for (var i = 1; i <= SiteCategory.values.length; i++) hexes[_random.nextInt(hexes.length)]];
+  late var shuffledHexes = [for (var i = 1; i <= SiteCategory.categoriesNoCulturalProperty().length; i++) hexes[_random.nextInt(hexes.length)]];
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +72,7 @@ class PieChart2State extends State {
   }
 
   List<Indicator> getIndicators() {
-    return SiteCategory.values.mapIndexed((index, cat) {
+    return SiteCategory.categoriesNoCulturalProperty().mapIndexed((index, cat) {
       String hex = "0xff${shuffledHexes[index]}";
       return Indicator(
         color: Color(int.parse(hex)),
@@ -96,7 +98,7 @@ class PieChart2State extends State {
 
 
   List<PieChartSectionData> showingSections() {
-    return SiteCategory.values.mapIndexed((index, cat) {
+    return SiteCategory.categoriesNoCulturalProperty().mapIndexed((index, cat) {
         var sites = sitesManager.sites.where((element) => element.categories.contains(cat)).toList();
 
         final isTouched = index == touchedIndex;
@@ -106,7 +108,7 @@ class PieChart2State extends State {
 
         return PieChartSectionData(
           color: Color(int.parse(hex)),
-          value: 20,
+          value: sites.length.toDouble(),
           title: "${sites.length}",
           radius: radius,
           titleStyle: TextStyle(

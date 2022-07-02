@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:tokyo_data/models/models.dart';
 
 enum SiteCategory {
   culturalProperty,
@@ -28,6 +29,10 @@ enum SiteCategory {
     } else {return [];}
   }
 
+  static List<SiteCategory> categoriesNoCulturalProperty() {
+    List<SiteCategory> categories =  SiteCategory.values;
+    return categories.where((element) => element.name != "都指定文化財").toList();
+  }
 
   String get name {
     switch (this) {
