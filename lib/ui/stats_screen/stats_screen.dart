@@ -28,7 +28,9 @@ class _StatsScreenState extends State<StatsScreen> {
         return ListView(
           children: [
             TokyoBarGraph(barData: manager.userData, barWidth: 30,),
-            TokyoPieGraph(pieName:"Site Categories", items: categoryData(manager),),
+            TokyoPieGraph(pieName: "VISITED", items: manager.userPieVisitedCategoryData),
+            TokyoPieGraph(pieName: "FAVORITED", items: manager.userPieFavoritedCategoryData),
+            TokyoPieGraph(pieName:"SITE CATEGORIES", items: categoryData(manager),),
           ],
         );
       });

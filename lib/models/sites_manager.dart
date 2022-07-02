@@ -21,11 +21,25 @@ class SitesManager extends ChangeNotifier {
 
   Set<CulturalSite> sitesWaitingForMapUpdate = {};
 
-  BarData get userData { return BarData("User's stats",[
+  BarData get userData { return BarData("USER'S STATS",[
     BarItem(const Icon(Icons.favorite, color: Color(0xffef3054),), favoritedSites.length.toDouble(),"Favorited"),
     BarItem(const Icon(Icons.visibility, color: Color(0xffA69658),), visitedSites.length.toDouble(),"Visited"),
   ], maxValue: sites.length.toDouble(),
   );}
+
+  List<TokyoPieItem> get userPieVisitedCategoryData {
+    return SiteCategory.categoriesNoCulturalProperty().map((cat) {
+      var sites = visitedSites.where((element) => element.categories.contains(cat)).toList();
+      return TokyoPieItem(cat.name, sites.length.toDouble());
+    }).where((element) => element.value>0).toList();
+  }
+
+  List<TokyoPieItem> get userPieFavoritedCategoryData {
+    return SiteCategory.categoriesNoCulturalProperty().map((cat) {
+      var sites = favoritedSites.where((element) => element.categories.contains(cat)).toList();
+      return TokyoPieItem(cat.name, sites.length.toDouble());
+    }).where((element) => element.value>0).toList();
+  }
 
   List<CulturalSite> get visitedSites {
     return sites.where( (site) {

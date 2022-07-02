@@ -3,7 +3,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:tokyo_data/models/models.dart';
 import 'package:provider/provider.dart';
-import "dart:math";
 import 'indicator_view.dart';
 
 
@@ -22,11 +21,6 @@ class _TokyoPieGraphState extends State<TokyoPieGraph> {
 
   int touchedIndex = -1;
   late final SitesManager sitesManager = Provider.of<SitesManager>(context,listen: false);
-
-  List<String> hexes = ["057c89","efbc04","c4ba07","072e60","930b1d","af390a","1f7c08","024277","e81497","037982","e81497","c91496","480187"];
-  final _random = Random();
-
-  late var shuffledHexes = [for (var i = 1; i <= widget.items.length; i++) hexes[_random.nextInt(hexes.length)]];
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +69,10 @@ class _TokyoPieGraphState extends State<TokyoPieGraph> {
   }
 
   List<Indicator> getIndicators() {
-    return widget.items.mapIndexed((index, cat) {
-      String hex = "0xff${shuffledHexes[index]}";
+    return widget.items.mapIndexed((index, item) {
       return Indicator(
-        color: Color(int.parse(hex)),
-        text: cat.name,
+        color: Color(int.parse(item.hexColor)),
+        text: item.name,
         isSquare: false,
         size: 16,
         textColor: touchedIndex == index ? Colors.black : Colors.grey,
@@ -106,10 +99,9 @@ class _TokyoPieGraphState extends State<TokyoPieGraph> {
         final isTouched = index == touchedIndex;
         final fontSize = isTouched ? 16.0 : 11.0;
         final radius = isTouched ? 90.0 : 80.0;
-        String hex = "0xff${shuffledHexes[index]}";
 
         return PieChartSectionData(
-          color: Color(int.parse(hex)),
+          color: Color(int.parse(item.hexColor)),
           value: item.value,
           title: "${item.value.toInt()}",
           radius: radius,
