@@ -23,8 +23,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   static List<Widget> tabPages = [
-    const SitesView(),
     const DashboardScreen(),
+    const SitesView(),
     const MapScreenView(),
     const StatsScreen(),
 
@@ -54,8 +54,8 @@ class _HomeState extends State<Home> {
         type: BottomNavigationBarType.fixed,
         currentIndex: widget.currentTab,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: "SITES"),
           BottomNavigationBarItem(icon: Icon(Icons.category), label: "EXPLORE"),
+          BottomNavigationBarItem(icon: Icon(Icons.home),label: "SITES"),
           BottomNavigationBarItem(icon: Icon(Icons.map),label: "MAP" ),
           BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "STATS")
         ],
