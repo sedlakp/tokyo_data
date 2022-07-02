@@ -46,13 +46,13 @@ class _MapScreenViewState extends State<MapScreenView> {
           children: [
             map(),
             Positioned(
-              top: 110,
+              top: 10,
               left: 60,
               right: 60,
               child: SearchBarView(textChanged: onTextChanged,),
             ),
             Positioned(
-                top: 100,
+                top: 10,
                 right: 8,
                 child: IconButton(iconSize: 38, onPressed: questionPressed,icon: const Icon(Icons.info_outline, color: Color(0xff3a3e45),),)),
             Positioned(
