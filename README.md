@@ -29,5 +29,4 @@ The google maps api key will probably not work because I restricted it. If it do
 |----|-----|------|------|
 |<img src="/screenshots/list.png" width="200">|<img src="/screenshots/map.png" width="200">|<img src="/screenshots/detail.png" width="200">|<img src="/screenshots/stats.png" width="200">|  
 |Dashboard  |Marked  |Loading | 
-|----|-----|------|
 |<img src="/screenshots/dashboard.png" width="200">|<img src="/screenshots/marked.png" width="200">|<img src="/screenshots/loading.png" width="200">|
